@@ -1,50 +1,103 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Blocks Constitution
+
+> Living principles powering the Blocks MVP (see `blocks_mvp_spec.md`). This file is the canonical lightweight memory for decision alignment.
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Outcome Over Features
+Ship only what advances the 20% net savings proof, trust, or adoption; every backlog item must cite the KPI or an enabling principle.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Trace Every Number
+All surfaced costs, projections, and savings link back to reproducible data sources (CUR partition or Athena query) — zero opaque math.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Explainability First (AI)
+Major Tom must reference underlying datasets or explicitly state uncertainty; no fabricated or unqualified figures.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Tenant Isolation by Design
+Every API/data access path asserts tenant context and rejects ambiguous scope; isolation failures are Sev-1.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Automate Recurrence, Not Judgment
+Ingestion, enrichment, and projections are scheduled; financial commitment actions (SP purchases) retain human approval until reliability thresholds met.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### VI. Performance Budgeted
+Maintain P95 page TTI <3.5s and API <600ms for cached aggregates; performance regressions block deploys unless exception documented.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### VII. Frugality with Leverage
+Prefer serverless/North Star services (Athena, DynamoDB, EventBridge) before custom infra; add complexity only after measured need.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### VIII. Fail Loud, Not Silent
+Missing data or ingestion lag must surface user-facing banners + internal alerts instead of silently skewing projections.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### IX. Bias to Learning
+Favor iterative weekly increments (stub → functional → instrumented) over large hidden branches; experiments > debates when uncertain.
+
+### X. Deterministic & Idempotent Data Flows
+Re-running ETL produces stable outputs; all derived aggregates versioned by schema/content hash.
+
+## Engineering & Operational Standards
+
+### Security & Privacy
+- Least privilege role separation: read vs. analyze vs. purchase.
+- Minimum PII: only auth essentials; cost data devoid of personal identifiers.
+- Encryption in transit + at rest default; secrets managed via parameter/secrets stores, never hard-coded.
+
+### Data & Recommendations
+- CUR is canonical hourly source; Cost Explorer supplements gaps/coverage metrics.
+- Each recommendation stores rationale + expected savings + link to underlying metric slice.
+- Projection engine initially applies flat contractual discount; future SP optimization layered transparently.
+
+### AI Assistant (Major Tom)
+- Responses carry structured reference IDs (aggregates, rec IDs, query handles).
+- Rate limiting per tenant to prevent abuse/resource starvation.
+- No autonomous infrastructure or purchase actions in MVP scope.
+
+### Observability
+- Structured logs with correlation IDs (tenant, request, job ID).
+- Metrics: ingestion lag, recommendation freshness age, projection latency, chat first-token latency.
+- Alarms on: ingestion >1 partition interval delay, cross-tenant access attempt, chat error spike, SP analyzer failure.
+
+### Performance & Cost
+- Cache stable aggregates (hour/day) in DynamoDB; bypass cache for volatile near-real-time windows with clear TTL.
+- Track CloudFront/Lambda@Edge costs vs. usage; add optimization only after threshold triggers (document threshold).
+
+### Delivery Workflow
+- Contract-first: define Zod schema + interface notes before UI binding.
+- PRs require: principle reference, test coverage for new logic branches, and observability notes if adding a pipeline.
+- Weekly demo cadence; skipped demo requires written exception.
+
+## Workflow & Quality Gates
+
+### Development Flow
+1. Define problem → cite principle(s).
+2. Add/adjust schema & contract tests (where applicable).
+3. Implement minimal solution instrumented for measurement.
+4. Demo & collect metrics.
+5. Iterate or retire experiment.
+
+### Testing Requirements
+- Unit: Core transformation & projection logic (happy + edge cases).
+- Idempotence Tests: Re-run sample ingest to assert no drift.
+- Contract Tests: API shape vs. Zod definitions.
+- AI Response Tests: Lint for presence of reference IDs in fixture prompts.
+
+### Release Gates
+- All high-priority alarms green or documented exception.
+- Performance budgets met (automated check pipeline).
+- Security scan (dependencies & IaC) passes or approved risk note.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+Constitution supersedes ad-hoc preferences. Amendments use PR with label `constitution` including: rationale, impacted principle(s), migration/communication plan, success metric adjustment if relevant.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Amendment Rules
+- Minor wording/clarity: single lead approval (Product or Engineering).
+- New / Removed Principle: dual approval (Product + Engineering) + version bump minor.
+- Structural Reframe (grouping overhaul or >25% content change): version bump major with change log.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+### Compliance Mechanisms
+- PR template includes required "Principle Referenced" field.
+- Quarterly audit: sample 5 recent features for traceability to principles.
+- Violations trigger remediation issue tagged `principle-drift`.
+
+**Version**: 0.1.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-19
+
+<!-- End of Blocks Constitution v0.1.0 -->

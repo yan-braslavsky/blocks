@@ -1,0 +1,23 @@
+name: PR Principle Compliance
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  principle-check:
+    name: Ensure PR cites a constitution principle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Extract PR Body
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.setOutput('body', context.payload.pull_request.body || '')
+      - name: Run Principle Linter
+        run: |
+          chmod +x .specify/scripts/bash/check-pr-principles.sh
+          PR_BODY="${{ steps.pr.outputs.body }}" .specify/scripts/bash/check-pr-principles.sh
