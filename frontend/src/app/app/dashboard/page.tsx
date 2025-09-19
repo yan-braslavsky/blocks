@@ -56,7 +56,7 @@ export default function DashboardPage() {
           <h3 className='font-semibold text-lg text-foreground mb-4'>
             Spend Trend
           </h3>
-          <div className='h-64 bg-slate-50 dark:bg-slate-800 rounded-md flex items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700'>
+          <div className='h-64 bg-surface border-2 border-dashed border-border rounded-md flex items-center justify-center'>
             <p className='text-muted'>
               Chart component will be implemented in future tasks
             </p>
@@ -64,8 +64,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Status */}
-        <div className='bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4'>
-          <p className='text-sm text-blue-800 dark:text-blue-200'>
+        <div className='bg-primary-50 border border-primary-200 rounded-lg p-4'>
+          <p className='text-sm text-primary-800'>
             <strong>Status:</strong> This is a placeholder dashboard created during foundation setup (T001-T010). 
             Full functionality will be implemented in upcoming tasks T011+ with contract tests, mock data, and real components.
           </p>
