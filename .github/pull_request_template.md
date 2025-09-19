@@ -3,46 +3,65 @@
 ## Summary
 Explain the change in 2-3 sentences: scope, intent, and user/system impact.
 
-## Principle Referenced
-<!-- REQUIRED: Cite one or more principles from .specify/memory/constitution.md -->
-- Primary Principle: 
-- (Optional) Secondary Principles:
+## Constitutional Principles Alignment
+<!-- REQUIRED: Reference principles from /memory/constitution.md -->
 
-Provide short justification for alignment:
->
+**Primary Principle**: 
+**Secondary Principles** (if applicable):
+
+**Justification**:
+> Brief explanation of how this change aligns with the selected principles.
 
 ## Changes
-- [ ] Code
-- [ ] Tests
-- [ ] Docs / Spec update
-- [ ] Observability (logs/metrics/alerts)
+- [ ] Code implementation
+- [ ] Tests (unit/integration/contract)
+- [ ] Documentation/Spec update
+- [ ] Observability (logs/metrics)
 - [ ] Security/IAM
+- [ ] Performance optimization
+- [ ] Accessibility improvement
 
-### Detail
-- Key Components Touched:
-- Breaking Changes?: (Yes/No + mitigation)
-- Feature Flags / Config:
+### Technical Details
+- **Key Components**: 
+- **Breaking Changes**: Yes/No + migration plan if applicable
+- **Dependencies**: Any new/updated dependencies
+- **Feature Flags**: Configuration changes required
 
-## Validation
-Describe how you validated (include commands, test evidence, screenshots if UI):
+## Testing & Validation
+Describe validation approach (include commands, evidence, screenshots for UI):
+
+```bash
+# Example validation commands
+npm run test
+npm run typecheck
+npm run lint
 ```
-# example commands
-npm test
-```
 
-## Risk & Rollback
-- Risk Level (Low/Med/High): 
-- Rollback Plan:
-- Data Migration Impact:
+**Mobile Testing** (if UI changes):
+- [ ] Tested on mobile viewport (≤420px)
+- [ ] Touch targets ≥44px
+- [ ] No horizontal scroll
 
-## Follow-ups
-List any deferred work / tickets spawned:
+**Accessibility** (if UI changes):
+- [ ] WCAG 2.1 AA contrast maintained
+- [ ] ARIA labels present
+- [ ] Keyboard navigation working
+
+## Risk Assessment
+- **Risk Level**: Low/Medium/High
+- **Rollback Plan**: 
+- **Performance Impact**: 
+- **Data Migration**: None/Required (details)
+
+## Follow-up Tasks
+List any deferred work or spawned tickets:
 - 
 
 ## Checklist
-- [ ] Referenced at least 1 principle
-- [ ] Added/updated tests for new logic
-- [ ] No secrets / credentials committed
-- [ ] Performance budget not violated (or documented exception)
-- [ ] Security/IAM changes reviewed
-- [ ] Observability added/updated
+- [ ] Constitutional principle(s) referenced and justified
+- [ ] Tests added/updated for new functionality
+- [ ] No credentials or secrets committed
+- [ ] Performance budgets respected (or exception documented)
+- [ ] Documentation updated for user-facing changes
+- [ ] Mobile-first approach maintained (if UI)
+- [ ] Accessibility requirements met (if UI)

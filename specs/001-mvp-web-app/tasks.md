@@ -17,16 +17,16 @@ Sequential groups intentionally omit `[P]` to preserve order.
 
 ---
 ## Phase 3.1 Foundations & Repo Scaffolding
-- [ ] T001 Initialize monorepo root: `package.json` (workspaces: `frontend`, `backend`, `shared`), `README.md` scaffold, root `tsconfig.base.json`.
-- [ ] T002 Create `shared/` workspace with `shared/package.json`, `tsconfig.json`, and initial `src/index.ts` export barrel.
-- [ ] T003 Add root ESLint + Prettier + TypeScript strict config; npm scripts (`lint`, `typecheck`, `test`, `build`).
-- [ ] T004 GitHub Actions CI: `.github/workflows/ci.yml` (install → lint → typecheck → test → build).
-- [ ] T005 Commit lint + PR template referencing constitution principles.
-- [ ] T006 Frontend bootstrap: `frontend` Next.js (App Router, `src/app`), enable strict mode & SWC minify.
-- [ ] T007 Backend bootstrap: `backend` Node project with `tsconfig.json`, test setup (Vitest), and start script.
-- [ ] T008 Design tokens file `frontend/src/design-system/tokens.ts` (spacing 8px scale, colors, typography, dark mode tokens) + export types. [P]
-- [ ] T009 Tailwind config + `globals.css` with CSS variables from tokens. Depends on T008.
-- [ ] T010 Basic logging utility `backend/src/lib/log.ts` (function `log(level, msg, meta?)`).
+- [x] T001 Initialize monorepo root: `package.json` (workspaces: `frontend`, `backend`, `shared`), `README.md` scaffold, root `tsconfig.base.json`.
+- [x] T002 Create `shared/` workspace with `shared/package.json`, `tsconfig.json`, and initial `src/index.ts` export barrel.
+- [x] T003 Add root ESLint + Prettier + TypeScript strict config; npm scripts (`lint`, `typecheck`, `test`, `build`).
+- [x] T004 GitHub Actions CI: `.github/workflows/ci.yml` (install → lint → typecheck → test → build).
+- [x] T005 Commit lint + PR template referencing constitution principles.
+- [x] T006 Frontend bootstrap: `frontend` Next.js (App Router, `src/app`), enable strict mode & SWC minify.
+- [x] T007 Backend bootstrap: `backend` Node project with `tsconfig.json`, test setup (Vitest), and start script.
+- [x] T008 Design tokens file `frontend/src/design-system/tokens.ts` (spacing 8px scale, colors, typography, dark mode tokens) + export types. [P]
+- [x] T009 Tailwind config + `globals.css` with CSS variables from tokens. Depends on T008.
+- [x] T010 Basic logging utility `backend/src/lib/log.ts` (function `log(level, msg, meta?)`).
 
 ## Phase 3.2 Contract & Integration Tests (Failing First)
 - [ ] T011 Zod schemas for all contracts in `backend/src/schemas/` (spend, projection, recommendations, assistantQuery, connectionTest, tenantSetup, errorShape).
