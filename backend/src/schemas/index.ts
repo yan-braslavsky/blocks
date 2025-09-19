@@ -3,12 +3,12 @@
  */
 
 // Common schemas and utilities
-export * from './common.js';
+export * from './common';
 
 // Endpoint-specific schemas
-export * from './spend.js';
-export * from './projection.js';
-export * from './recommendations.js';
-export * from './assistant.js';
-export * from './connection-test.js';
-export * from './tenant-setup.js';
+export * from './spend';
+export * from './projection';
+export * from './recommendations';
+export * from './assistant';
+export * from './connection-test';
+export * from './tenant-setup';

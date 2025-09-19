@@ -1,0 +1,13 @@
+{
+  "validation": {
+    "roleArn": "arn:aws:iam::123456789012:role/BlocksCostAnalysisRole",
+    "isValid": true,
+    "testedAt": "2025-09-19T08:45:00.000Z",
+    "permissions": [
+      "ce:GetCostAndUsage",
+      "ce:GetUsageReport", 
+      "ce:GetReservationCoverage",
+      "organizations:ListAccounts"
+    ]
+  }
+}

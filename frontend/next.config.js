@@ -14,6 +14,14 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_APP_VERSION: process.env.npm_package_version,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `http://localhost:${process.env.BACKEND_PORT || 3003}/api/:path*`,
+      },
+    ];
+  },
   async redirects() {
     return [
       {

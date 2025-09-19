@@ -70,7 +70,9 @@ export const metricRefSchema = z.string().regex(
 
 // Common response metadata
 export const metaSchema = z.object({
-  missingIntervalsPct: z.number().min(0).max(1),
+  lastIngestAt: timestampSchema.optional(),
+  dataPoints: z.number().int().nonnegative().optional(),
+  currency: z.string().length(3).optional(),
 }).optional();
 
 // Export types for TypeScript

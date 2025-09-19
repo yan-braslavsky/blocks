@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { TenantProvider } from './providers/TenantProvider';
+import { QueryProvider } from './providers/QueryProvider';
+import AssistantWidget from '../components/assistant/Widget';
 
 export const metadata: Metadata = {
   title: 'Blocks MVP - Cloud Cost Optimization',
@@ -20,7 +23,12 @@ export default function RootLayout({
   return (
     <html lang='en' className='h-full'>
       <body className='h-full bg-background text-foreground antialiased'>
-        {children}
+        <QueryProvider>
+          <TenantProvider>
+            {children}
+            <AssistantWidget />
+          </TenantProvider>
+        </QueryProvider>
       </body>
     </html>
   );

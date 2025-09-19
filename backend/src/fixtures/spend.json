@@ -1,0 +1,53 @@
+{
+  "tenantId": "01234567-89ab-cdef-0123-456789abcdef",
+  "timeRange": "week",
+  "currency": "USD",
+  "granularity": "day", 
+  "series": [
+    {
+      "ts": "2025-09-13T00:00:00.000Z",
+      "costMinor": 12500,
+      "projectedCostMinor": 10000
+    },
+    {
+      "ts": "2025-09-14T00:00:00.000Z", 
+      "costMinor": 14200,
+      "projectedCostMinor": 11360
+    },
+    {
+      "ts": "2025-09-15T00:00:00.000Z",
+      "costMinor": 13800,
+      "projectedCostMinor": 11040
+    },
+    {
+      "ts": "2025-09-16T00:00:00.000Z",
+      "costMinor": 15600,
+      "projectedCostMinor": 12480
+    },
+    {
+      "ts": "2025-09-17T00:00:00.000Z",
+      "costMinor": 16800,
+      "projectedCostMinor": 13440
+    },
+    {
+      "ts": "2025-09-18T00:00:00.000Z",
+      "costMinor": 14900,
+      "projectedCostMinor": 11920
+    },
+    {
+      "ts": "2025-09-19T00:00:00.000Z",
+      "costMinor": 13200,
+      "projectedCostMinor": 10560
+    }
+  ],
+  "totals": {
+    "baselineMinor": 101000,
+    "projectedMinor": 80800,
+    "deltaPct": 0.2
+  },
+  "meta": {
+    "lastIngestAt": "2025-09-19T08:30:00.000Z",
+    "dataPoints": 7,
+    "currency": "USD"
+  }
+}

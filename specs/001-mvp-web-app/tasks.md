@@ -42,23 +42,23 @@ Sequential groups intentionally omit `[P]` to preserve order.
 - [x] T021 Unit test design tokens `frontend/tests/unit/tokens.test.ts` enforcing contrast & presence (ensures tokens before UI). Depends on T008.
 
 ## Phase 3.3 Mock Backend & Core UI (Make Tests Pass Incrementally)
-- [ ] T022 Server bootstrap `backend/src/server.ts` (fastify or express minimal) with env `USE_MOCKS` + generic error handler (placeholder) exporting app for tests.
-- [ ] T023 Fixtures directory & JSON: `backend/src/fixtures/{spend.json,projection.json,recommendations.json,assistant.json,connectionSuccess.json,tenantSetup.json}`. [P]
-- [ ] T024 Handler: tenant setup `backend/src/api/tenantSetup.ts` (returns fixture, validates body with schema). Depends on T011.
-- [ ] T025 Handler: connection test `backend/src/api/connectionTest.ts`.
-- [ ] T026 Handler: spend `backend/src/api/spend.ts` with optional simulated latency (150ms) & param validation.
-- [ ] T027 Handler: projection `backend/src/api/projection.ts`.
-- [ ] T028 Handler: recommendations `backend/src/api/recommendations.ts`.
-- [ ] T029 Handler: assistant mock (non-stream & simulated streaming utility) `backend/src/api/assistant.ts`.
-- [ ] T030 Wire routes in `server.ts` and export for contract tests; update tests to import app instance.
-- [ ] T031 Frontend tenant context provider `frontend/src/app/providers/TenantProvider.tsx` with stub tenant ID.
-- [ ] T032 Onboarding page `frontend/src/app/onboarding/page.tsx` (form → sets stub tenant → redirect `/app/dashboard`).
-- [ ] T033 Dashboard placeholder page `frontend/src/app/app/dashboard/page.tsx` (KPI skeletons & spend chart placeholder container).
-- [ ] T034 Connect AWS page `frontend/src/app/app/connect-aws/page.tsx` (role instructions + validate button hitting mock endpoint).
-- [ ] T035 Assistant widget `frontend/src/components/assistant/Widget.tsx` (floating trigger + panel rendering mock response w/ references).
-- [ ] T036 Design system primitives (Button, Card, KPIStat) `frontend/src/components/ui/`. Depends on T008.
-- [ ] T037 Navigation shell + mobile drawer `frontend/src/components/layout/AppShell.tsx`. Depends on T036. [P]
-- [ ] T038 TanStack Query hooks `frontend/src/hooks/` (`useSpend.ts`, `useProjection.ts`, `useRecommendations.ts`, `useAssistant.ts`, `useConnectionTest.ts`). Depends on handlers.
+- [x] T022 Server bootstrap `backend/src/server.ts` (fastify or express minimal) with env `USE_MOCKS` + generic error handler (placeholder) exporting app for tests.
+- [x] T023 Fixtures directory & JSON: `backend/src/fixtures/{spend.json,projection.json,recommendations.json,assistant.json,connectionSuccess.json,tenantSetup.json}`. [P]
+- [x] T024 Handler: tenant setup `backend/src/api/tenantSetup.ts` (returns fixture, validates body with schema). Depends on T011.
+- [x] T025 Handler: connection test `backend/src/api/connectionTest.ts`.
+- [x] T026 Handler: spend `backend/src/api/spend.ts` with optional simulated latency (150ms) & param validation.
+- [x] T027 Handler: projection `backend/src/api/projection.ts`.
+- [x] T028 Handler: recommendations `backend/src/api/recommendations.ts`.
+- [x] T029 Handler: assistant mock (non-stream & simulated streaming utility) `backend/src/api/assistant.ts`.
+- [x] T030 Wire routes in `server.ts` and export for contract tests; update tests to import app instance.
+- [x] T031 Frontend tenant context provider `frontend/src/app/providers/TenantProvider.tsx` with stub tenant ID.
+- [x] T032 Onboarding page `frontend/src/app/onboarding/page.tsx` (form → sets stub tenant → redirect `/app/dashboard`).
+- [x] T033 Dashboard placeholder page `frontend/src/app/app/dashboard/page.tsx` (KPI skeletons & spend chart placeholder container).
+- [x] T034 Connect AWS page `frontend/src/app/app/connect-aws/page.tsx` (role instructions + validate button). Depends on T024.
+- [x] T035 Assistant widget `frontend/src/components/assistant/Widget.tsx` (floating trigger + panel) rendering mock response. Depends on T029.
+- [x] T036 Design system primitives `frontend/src/components/ui/` (`Button.tsx`, `Card.tsx`, `KPIStat.tsx`) using design tokens. Depends on T008.
+- [x] T037 Navigation shell + mobile drawer `frontend/src/components/layout/AppShell.tsx`. Depends on T036. [P]
+- [x] T038 TanStack Query hooks `frontend/src/hooks/` (`useSpend.ts`, `useProjection.ts`, `useRecommendations.ts`, `useAssistant.ts`, `useConnectionTest.ts`). Depends on handlers.
 
 ## Phase 3.4 Interaction & State Enhancements
 - [ ] T039 URL filter state sync `frontend/src/app/app/dashboard/useDashboardFilters.ts` (query param <-> state).

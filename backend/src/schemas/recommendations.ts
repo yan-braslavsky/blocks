@@ -9,7 +9,7 @@ import {
   timestampSchema, 
   minorAmountSchema,
   metricRefSchema
-} from './common.js';
+} from './common';
 
 // Query parameters schema
 export const recommendationsQuerySchema = z.object({

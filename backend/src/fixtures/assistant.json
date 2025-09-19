@@ -1,0 +1,16 @@
+{
+  "tenantId": "01234567-89ab-cdef-0123-456789abcdef",
+  "conversationId": "conv-01234567-89ab-cdef-0123-456789abcdef",
+  "messages": [
+    {
+      "role": "assistant",
+      "content": "Based on your current spending patterns, I can see a few optimization opportunities. Your EC2 instances are showing some underutilization [REF:agg:2025-09-19T10], and there are potential savings through rightsizing recommendations [REF:rec-01234567-89ab-cdef-0123-456789abcdef]. Would you like me to explain the specific rightsizing opportunities?",
+      "timestamp": "2025-09-19T08:45:00.000Z",
+      "metricRefs": [
+        "agg:2025-09-19T10",
+        "rec-01234567-89ab-cdef-0123-456789abcdef"
+      ]
+    }
+  ],
+  "isStreaming": false
+}

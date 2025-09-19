@@ -6,7 +6,7 @@ import {
   uuidSchema, 
   timestampSchema, 
   metricRefSchema
-} from './common.js';
+} from './common';
 
 // Request body schema
 export const assistantQueryRequestSchema = z.object({

@@ -8,7 +8,7 @@ import {
   timestampSchema, 
   minorAmountSchema,
   percentageSchema 
-} from './common.js';
+} from './common';
 
 // Query parameters schema
 export const projectionQuerySchema = z.object({

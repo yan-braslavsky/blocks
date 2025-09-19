@@ -6,7 +6,7 @@ import {
   awsArnSchema,
   externalIdSchema,
   timestampSchema
-} from './common.js';
+} from './common';
 
 // Request body schema
 export const connectionTestRequestSchema = z.object({

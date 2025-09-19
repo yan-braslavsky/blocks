@@ -1,0 +1,40 @@
+{
+  "tenantId": "01234567-89ab-cdef-0123-456789abcdef",
+  "items": [
+    {
+      "id": "rec-01234567-89ab-cdef-0123-456789abcdef",
+      "category": "rightsizing",
+      "status": "new",
+      "rationale": "EC2 instance i-0abc123def456789 has been running at 15% CPU utilization for the past 30 days. Consider downsizing from m5.large to m5.medium to save approximately $25/month.",
+      "expectedSavingsMinor": 2500,
+      "metricRefs": [
+        "agg:2025-09-19T10",
+        "agg:2025-09-18T10"
+      ],
+      "createdAt": "2025-09-19T08:15:00.000Z",
+      "updatedAt": "2025-09-19T08:15:00.000Z"
+    },
+    {
+      "id": "rec-fedcba98-7654-3210-fedc-ba9876543210",
+      "category": "commitment",
+      "status": "new", 
+      "rationale": "Your consistent usage of EC2 m5.xlarge instances qualifies for Savings Plan commitments. A 1-year term could reduce costs by 15% with minimal risk.",
+      "expectedSavingsMinor": 7500,
+      "metricRefs": [
+        "agg:2025-09-19T10"
+      ],
+      "createdAt": "2025-09-19T07:30:00.000Z",
+      "updatedAt": "2025-09-19T07:30:00.000Z"
+    },
+    {
+      "id": "rec-11111111-2222-3333-4444-555555555555",
+      "category": "idle",
+      "status": "acknowledged",
+      "rationale": "RDS instance db-prod-backup appears idle with no connections in the last 14 days. Consider stopping or terminating if no longer needed.",
+      "expectedSavingsMinor": 12000,
+      "metricRefs": [],
+      "createdAt": "2025-09-17T14:20:00.000Z",
+      "updatedAt": "2025-09-19T09:00:00.000Z"
+    }
+  ]
+}

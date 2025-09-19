@@ -8,7 +8,7 @@ import {
   externalIdSchema,
   tenantNameSchema,
   timestampSchema
-} from './common.js';
+} from './common';
 
 // Request body schema
 export const tenantSetupRequestSchema = z.object({
