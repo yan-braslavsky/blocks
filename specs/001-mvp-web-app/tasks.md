@@ -31,15 +31,15 @@ Sequential groups intentionally omit `[P]` to preserve order.
 ## Phase 3.2 Contract & Integration Tests (Failing First)
 - [x] T011 Zod schemas for all contracts in `backend/src/schemas/` (spend, projection, recommendations, assistantQuery, connectionTest, tenantSetup, errorShape).
 - [x] T012 [P] Contract test GET /spend `backend/tests/contract/spend.test.ts` (valid + invalid enum timeRange case).
-- [ ] T013 [P] Contract test GET /projection `backend/tests/contract/projection.test.ts`.
-- [ ] T014 [P] Contract test GET /recommendations `backend/tests/contract/recommendations.test.ts` (status/category filters, invalid status rejection).
-- [ ] T015 [P] Contract test POST /assistant/query `backend/tests/contract/assistant.test.ts` (missing prompt negative case).
-- [ ] T016 [P] Contract test POST /connection/test `backend/tests/contract/connection.test.ts` (invalid ARN pattern case).
-- [ ] T017 [P] Contract test POST /tenant/setup `backend/tests/contract/tenant-setup.test.ts` (duplicate name placeholder skip). 
-- [ ] T018 Integration test onboarding flow `frontend/tests/integration/onboarding.test.tsx` (create workspace stub → dashboard redirect placeholders present).
-- [ ] T019 Integration test assistant stub `frontend/tests/integration/assistant-ref.test.tsx` (response contains `[REF:` token).
-- [ ] T020 Integration test mobile layout `frontend/tests/integration/mobile-layout.test.tsx` (cards stack ≤420px width).
-- [ ] T021 Unit test design tokens `frontend/tests/unit/tokens.test.ts` enforcing contrast & presence (ensures tokens before UI). Depends on T008.
+- [x] T013 [P] Contract test GET /projection `backend/tests/contract/projection.test.ts`.
+- [x] T014 [P] Contract test GET /recommendations `backend/tests/contract/recommendations.test.ts` (status/category filters, invalid status rejection).
+- [x] T015 [P] Contract test POST /assistant/query `backend/tests/contract/assistant.test.ts` (missing prompt negative case).
+- [x] T016 [P] Contract test POST /connection/test `backend/tests/contract/connection.test.ts` (invalid ARN pattern case).
+- [x] T017 [P] Contract test POST /tenant/setup `backend/tests/contract/tenant-setup.test.ts` (duplicate name placeholder skip). 
+- [x] T018 Integration test onboarding flow `frontend/tests/integration/onboarding.test.tsx` (create workspace stub → dashboard redirect placeholders present).
+- [x] T019 Integration test assistant stub `frontend/tests/integration/assistant-ref.test.tsx` (response contains `[REF:` token).
+- [x] T020 Integration test mobile layout `frontend/tests/integration/mobile-layout.test.tsx` (cards stack ≤420px width).
+- [x] T021 Unit test design tokens `frontend/tests/unit/tokens.test.ts` enforcing contrast & presence (ensures tokens before UI). Depends on T008.
 
 ## Phase 3.3 Mock Backend & Core UI (Make Tests Pass Incrementally)
 - [ ] T022 Server bootstrap `backend/src/server.ts` (fastify or express minimal) with env `USE_MOCKS` + generic error handler (placeholder) exporting app for tests.

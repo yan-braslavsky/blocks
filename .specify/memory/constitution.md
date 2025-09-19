@@ -76,7 +76,8 @@ Re-running ETL produces stable outputs; all derived aggregates versioned by sche
 4. **Console Error Resolution**: Address all Next.js dev server warnings and browser console errors.
 5. **Playwright E2E Testing**: Execute user journey tests to validate end-to-end functionality.
 6. **Pre-Handover Verification**: Ensure all validation steps pass before marking task complete.
-7. **Documentation**: Update task progress and include validation screenshots in PR.
+7. **Documentation & Checklist Update**: Update task progress in the relevant specification's task file and include validation screenshots in PR.
+8. **Checklist Maintenance**: Mark completed tasks as `[x]` in the specification's task checklist to maintain project visibility and progress tracking.
 
 ### Development Flow
 1. **Task-Level Pull Requests**: Create a separate pull request for each individual task implementation (T012, T013, etc.).
@@ -86,8 +87,9 @@ Re-running ETL produces stable outputs; all derived aggregates versioned by sche
 5. **Local Browser Validation**: Run implementation in local VS Code browser to verify no console errors.
 6. **End-to-End Testing**: Execute Playwright acceptance tests to validate user perspective functionality.
 7. **Console Clean-up**: Address all warnings and errors from Next.js dev server console before completion.
-8. Demo & collect metrics.
-9. Iterate or retire experiment.
+8. **Checklist Update**: Mark task as completed `[x]` in the relevant specification's task checklist for progress tracking.
+9. Demo & collect metrics.
+10. Iterate or retire experiment.
 
 ### Testing Requirements
 - **Test-Driven Development**: Write failing tests before implementation (contract tests, unit tests).
@@ -119,9 +121,12 @@ Constitution supersedes ad-hoc preferences. Amendments use PR with label `consti
 - Quarterly audit: sample 5 recent features for traceability to principles.
 - Violations trigger remediation issue tagged `principle-drift`.
 
-**Version**: 0.2.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-19
+**Version**: 0.2.1 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-19
 
-### Recent Amendments (v0.2.0)
+### Recent Amendments (v0.2.1)
+- **Checklist Maintenance**: Added mandatory checklist updates in `specs/001-mvp-web-app/tasks.md` as part of task completion workflow to ensure progress visibility and project tracking accuracy.
+
+### Previous Amendments (v0.2.0)
 - **Enhanced Development Workflow**: Added task-level pull requests, local browser validation, and Playwright testing requirements.
 - **Quality Gates**: Mandated console error resolution and end-to-end testing before task completion.
 - **Test-Driven Approach**: Formalized TDD/BDD practices with browser validation loops.
