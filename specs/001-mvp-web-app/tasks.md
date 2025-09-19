@@ -29,8 +29,8 @@ Sequential groups intentionally omit `[P]` to preserve order.
 - [x] T010 Basic logging utility `backend/src/lib/log.ts` (function `log(level, msg, meta?)`).
 
 ## Phase 3.2 Contract & Integration Tests (Failing First)
-- [ ] T011 Zod schemas for all contracts in `backend/src/schemas/` (spend, projection, recommendations, assistantQuery, connectionTest, tenantSetup, errorShape).
-- [ ] T012 [P] Contract test GET /spend `backend/tests/contract/spend.test.ts` (valid + invalid enum timeRange case).
+- [x] T011 Zod schemas for all contracts in `backend/src/schemas/` (spend, projection, recommendations, assistantQuery, connectionTest, tenantSetup, errorShape).
+- [x] T012 [P] Contract test GET /spend `backend/tests/contract/spend.test.ts` (valid + invalid enum timeRange case).
 - [ ] T013 [P] Contract test GET /projection `backend/tests/contract/projection.test.ts`.
 - [ ] T014 [P] Contract test GET /recommendations `backend/tests/contract/recommendations.test.ts` (status/category filters, invalid status rejection).
 - [ ] T015 [P] Contract test POST /assistant/query `backend/tests/contract/assistant.test.ts` (missing prompt negative case).

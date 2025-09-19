@@ -62,28 +62,49 @@ Re-running ETL produces stable outputs; all derived aggregates versioned by sche
 
 ### Delivery Workflow
 - Contract-first: define Zod schema + interface notes before UI binding.
-- PRs require: principle reference, test coverage for new logic branches, and observability notes if adding a pipeline.
+- **Per-Task PRs**: Individual pull requests for each task (T012, T013, etc.) with focused scope and validation.
+- PRs require: principle reference, test coverage for new logic branches, observability notes if adding a pipeline, **and browser validation screenshots**.
+- **Quality Gates**: Playwright tests passing + console error-free + local browser validation before PR merge.
 - Weekly demo cadence; skipped demo requires written exception.
 
 ## Workflow & Quality Gates
 
+### Task-Level Development Workflow
+1. **Pull Request Creation**: Create individual PR for each task implementation (granular scope).
+2. **Test-First Implementation**: Write failing contract/unit tests, then implement to make them pass.
+3. **Local Browser Validation**: Run feature in VS Code's built-in browser to verify functionality.
+4. **Console Error Resolution**: Address all Next.js dev server warnings and browser console errors.
+5. **Playwright E2E Testing**: Execute user journey tests to validate end-to-end functionality.
+6. **Pre-Handover Verification**: Ensure all validation steps pass before marking task complete.
+7. **Documentation**: Update task progress and include validation screenshots in PR.
+
 ### Development Flow
-1. Define problem → cite principle(s).
-2. Add/adjust schema & contract tests (where applicable).
-3. Implement minimal solution instrumented for measurement.
-4. Demo & collect metrics.
-5. Iterate or retire experiment.
+1. **Task-Level Pull Requests**: Create a separate pull request for each individual task implementation (T012, T013, etc.).
+2. Define problem → cite principle(s).
+3. Add/adjust schema & contract tests (where applicable).
+4. Implement minimal solution instrumented for measurement.
+5. **Local Browser Validation**: Run implementation in local VS Code browser to verify no console errors.
+6. **End-to-End Testing**: Execute Playwright acceptance tests to validate user perspective functionality.
+7. **Console Clean-up**: Address all warnings and errors from Next.js dev server console before completion.
+8. Demo & collect metrics.
+9. Iterate or retire experiment.
 
 ### Testing Requirements
+- **Test-Driven Development**: Write failing tests before implementation (contract tests, unit tests).
+- **Behavior-Driven Development**: Acceptance criteria validated through Playwright user journey tests.
 - Unit: Core transformation & projection logic (happy + edge cases).
 - Idempotence Tests: Re-run sample ingest to assert no drift.
 - Contract Tests: API shape vs. Zod definitions.
+- **Playwright E2E Tests**: User workflow validation for each feature implementation.
 - AI Response Tests: Lint for presence of reference IDs in fixture prompts.
+- **Pre-Completion Verification**: All tests passing + browser validation + console clean before task handover.
 
 ### Release Gates
+- **Task Completion Verification**: Each task must pass local browser testing + Playwright validation + console error resolution.
 - All high-priority alarms green or documented exception.
 - Performance budgets met (automated check pipeline).
 - Security scan (dependencies & IaC) passes or approved risk note.
+- **Quality Assurance**: No Next.js console warnings or errors before task handover.
 
 ## Governance
 Constitution supersedes ad-hoc preferences. Amendments use PR with label `constitution` including: rationale, impacted principle(s), migration/communication plan, success metric adjustment if relevant.
@@ -98,6 +119,11 @@ Constitution supersedes ad-hoc preferences. Amendments use PR with label `consti
 - Quarterly audit: sample 5 recent features for traceability to principles.
 - Violations trigger remediation issue tagged `principle-drift`.
 
-**Version**: 0.1.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-19
+**Version**: 0.2.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-19
 
-<!-- End of Blocks Constitution v0.1.0 -->
+### Recent Amendments (v0.2.0)
+- **Enhanced Development Workflow**: Added task-level pull requests, local browser validation, and Playwright testing requirements.
+- **Quality Gates**: Mandated console error resolution and end-to-end testing before task completion.
+- **Test-Driven Approach**: Formalized TDD/BDD practices with browser validation loops.
+
+<!-- End of Blocks Constitution v0.2.0 -->

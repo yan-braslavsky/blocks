@@ -14,18 +14,18 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fastify": "^4.24.0",
+    "@blocks/shared": "file:../shared",
     "@fastify/cors": "^8.4.0",
     "@fastify/env": "^4.2.0",
-    "zod": "^3.22.0",
-    "@blocks/shared": "file:../shared"
+    "fastify": "^4.24.0",
+    "zod": "^3.22.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
     "@types/node": "^20.0.0",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^6.3.4",
     "tsx": "^4.0.0",
-    "vitest": "^1.0.0",
-    "supertest": "^6.3.0",
-    "@types/supertest": "^6.0.0"
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
   }
 }
