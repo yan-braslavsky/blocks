@@ -1,15 +1,118 @@
 # Blocks MVP Web Application
 
-A production-quality cloud cost visibility and optimization platform, starting with AWS spend analysis and an AI assistant that provides actionable recommendations.
+Cloud cost visibility and optimization platform (MVP) focused on AWS spend analysis and an AI assistant that returns actionable recommendations.
 
-## Architecture
+---
 
-- **Frontend**: Next.js (App Router) with TypeScript, Tailwind CSS, shadcn/ui
-- **Backend**: Node.js serverless functions with mock data for rapid iteration
-- **Data**: Initially mocked, designed for future DynamoDB + S3/Athena integration
-- **Deployment**: Serverless-first (OpenNext → CloudFront + Lambda)
+## 1. Local Development (Start Here)
 
-## Development Status
+### Prerequisites
+- `Node.js >= 20` (check with `node -v`)
+- `npm >= 9`
+- macOS/Linux shell (scripts use `bash` + `lsof`)
+- Recommended: `docker` (optional for container build validation)
+
+### One‑Command Startup
+```bash
+git clone https://github.com/yan-braslavsky/blocks.git
+cd blocks
+npm install               # installs all workspaces (frontend, backend, shared)
+npm run dev               # starts backend (3001) + frontend (3000)
+```
+
+Then visit:
+- App shell / dashboard: http://localhost:3000/app/dashboard
+- Assistant widget: open dashboard and interact
+- Backend health: http://localhost:3001/health
+
+Press `Ctrl+C` to stop both processes (the wrapper script cleans them up).
+
+### Running Only One Side
+```bash
+# Backend only
+cd backend && npm run dev
+
+# Frontend only
+cd frontend && npm run dev
+```
+
+### Environment Variables
+Create `backend/.env` and `frontend/.env.local` as needed (defaults work without them):
+```bash
+# backend/.env
+USE_MOCKS=1              # Keep mock data mode on for local dev
+SIMULATE_LATENCY=1       # Adds delay to simulate network
+LATENCY_MS=150           # Delay in ms if simulation enabled
+LOG_LEVEL=info
+
+# frontend/.env.local
+NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_USE_MOCKS=1
+```
+
+### Available Root Scripts
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Parallel dev (kills stale 3000/3001, starts backend + frontend) |
+| `npm run test` | Runs all workspace unit/contract tests |
+| `npm run test:e2e` | Playwright end‑to‑end tests (`tests/e2e`) |
+| `npm run lint` | ESLint across workspaces |
+| `npm run typecheck` | TypeScript `--noEmit` across workspaces |
+| `npm run build` | Builds all workspaces (tsc + Next) |
+| `npm run verify` | Sequential: lint → typecheck → test → build |
+| `npm run clean` | Cleans build artifacts + root `node_modules` |
+
+### Workspace-Specific Scripts
+Backend (`backend/`): `dev`, `build`, `start`, `test`, `test:watch`, `typecheck`  
+Frontend (`frontend/`): `dev`, `build`, `start`, `test`, `test:watch`, `lint`, `typecheck`  
+Shared (`shared/`): types/utilities only (no runtime server).
+
+### Verification Pipeline Locally
+```bash
+npm run verify
+```
+If something fails, the script tells you next remediation steps (auto‑colored output).
+
+### Docker (Local Production Approximation)
+Build and run both services in containers (uses ports 8080 backend, 3000 frontend):
+```bash
+docker compose build
+docker compose up
+```
+Endpoints:
+- Backend (prod-style) API root: http://localhost:8080/
+- Backend health: http://localhost:8080/health
+- Frontend app: http://localhost:3000
+
+Stop containers:
+```bash
+docker compose down
+```
+
+### Testing
+```bash
+# All unit + contract tests
+npm test
+
+# Watch mode (example: backend)
+cd backend && npm run test:watch
+
+# Playwright E2E
+npm run test:e2e
+
+# Debug a single Playwright test
+npx playwright test tests/e2e/dashboard.spec.ts --debug
+```
+
+### Linting & Type Safety
+```bash
+npm run lint -- --fix
+npm run typecheck
+```
+
+---
+
+## 2. Current Development Status
 
 ### Slice 1: Mock-First Foundation (85% Complete)
 
@@ -57,106 +160,55 @@ A production-quality cloud cost visibility and optimization platform, starting w
 - Commitment management
 - Export capabilities and reporting
 
-## Quick Start
+## 3. Architecture Overview
 
-> **📋 Detailed Guide**: See [quickstart.md](./specs/001-mvp-web-app/quickstart.md) for comprehensive setup instructions
+- **Frontend**: Next.js (App Router), TypeScript, Tailwind, shadcn/ui, TanStack Query
+- **Backend**: Fastify (TypeScript), mock-first endpoints
+- **Shared**: Cross-cutting types (`@blocks/shared`)
+- **Data**: Mock JSON fixtures → future DynamoDB + S3/Athena ingestion
+- **Deployment Target (Planned)**: OpenNext → CloudFront + Lambda (serverless-first)
 
-```bash
-# Install all dependencies
-npm install
+### Ports & Runtime Summary
+| Mode | Frontend | Backend | Notes |
+|------|----------|---------|-------|
+| Local dev (`npm run dev`) | 3000 | 3001 | Mock mode enabled |
+| Docker compose | 3000 | 8080 | Production build images |
 
-# Start development servers (both frontend:3000 + backend:3001)
-npm run dev
-
-# Run all tests
-npm run test
-
-# Run end-to-end tests
-npm run test:e2e
-
-# Lint and type check
-npm run lint
-npm run typecheck
-
-# Build for production
-npm run build
-
-# Run verification script (lint + typecheck + test + build)
-npm run verify
-```
-
-### Key URLs
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:3001
-- **Health Check**: http://localhost:3001/health
-- **Dashboard**: http://localhost:3000/app/dashboard
-- **Onboarding**: http://localhost:3000/onboarding
-
-### Environment Variables
-```bash
-# Backend (.env in backend/)
-USE_MOCKS=1              # Enable mock data mode
-SIMULATE_LATENCY=1       # Add realistic API delays
-LATENCY_MS=150           # Latency simulation in ms
-LOG_LEVEL=info           # Logging level
-
-# Frontend (.env.local in frontend/)
-NEXT_PUBLIC_API_URL=http://localhost:3001
-NEXT_PUBLIC_USE_MOCKS=1  # Frontend mock mode
-```
-
-### Development Server Behavior
-
-The root `npm run dev` command now:
-
-1. Kills any processes currently listening on ports `3000` (frontend) and `3001` (backend) using `lsof` + `kill -9` to avoid stale watchers.
-2. Starts the backend (`Fastify` API) on port `3001` and the Next.js frontend on port `3000` in parallel.
-3. Cleans up both processes when you press `Ctrl+C`.
-
-If you need to run only one side:
-
-```bash
-cd backend && npm run dev   # backend only (port 3001)
-cd frontend && npm run dev  # frontend only (port 3000)
-```
-
-If you prefer a softer process shutdown strategy in the future (e.g. `SIGTERM` then `SIGKILL`), we can adjust `scripts/dev.sh` accordingly.
-
-## Project Structure
+## 4. Project Structure
 
 ```
 blocks/
-├── frontend/          # Next.js application
-├── backend/           # Node.js API with mock endpoints
-├── shared/            # Common types and utilities
-├── specs/             # Feature specifications and planning
-└── scripts/           # Development and deployment scripts
+├── frontend/          # Next.js app (App Router)
+├── backend/           # Fastify API (mock endpoints)
+├── shared/            # Types & shared utilities
+├── specs/             # Feature specs + plans
+├── scripts/           # Dev + verification scripts
+└── k8s/               # (Future) deployment manifests
 ```
 
-## Technology Stack
+## 5. Technology Stack
 
 ### Frontend
 - Next.js 14+ (App Router)
-- TypeScript (strict mode)
-- Tailwind CSS + shadcn/ui components
-- TanStack Query (state management)
-- Zod (runtime validation)
+- TypeScript (strict)
+- Tailwind CSS + shadcn/ui
+- TanStack Query
+- Zod validation
 
 ### Backend
-- Node.js 20+
-- TypeScript
-- Fastify/Express (TBD)
-- Vitest (testing)
-- Mock-first development approach
+- Fastify (TypeScript)
+- Zod schema validation
+- Structured logging middleware
+- Mock‑first strategy
 
-### Infrastructure (Future)
-- AWS CDK (Infrastructure as Code)
-- OpenNext (deployment)
-- DynamoDB (tenant-partitioned data)
-- S3 + Athena (cost data analytics)
-- EventBridge + Lambda (ingestion)
+### Future Infra Targets
+- OpenNext + CloudFront + Lambda
+- DynamoDB (entity + tenant partitioning)
+- S3 + Athena (cost dataset)
+- EventBridge + Lambda ingestion
+- AWS CDK (IaC)
 
-## Design Principles
+## 6. Design Principles
 
 - **Mobile-first**: Responsive design prioritizing mobile experience
 - **Test-driven**: Contract tests before implementation
@@ -165,7 +217,7 @@ blocks/
 - **Performance**: Budgets enforced (3.5s p95 dashboard, 1.5s assistant)
 - **Observability**: Structured logging and performance markers
 
-## Documentation
+## 7. Documentation
 
 - [Feature Specification](./specs/001-mvp-web-app/spec.md)
 - [Implementation Plan](./specs/001-mvp-web-app/plan.md)
@@ -174,7 +226,7 @@ blocks/
 - [Data Model](./specs/001-mvp-web-app/data-model.md)
 - [Quick Start Guide](./specs/001-mvp-web-app/quickstart.md)
 
-## Contributing
+## 8. Contributing
 
 This is an MVP development phase. All changes should:
 1. Reference the constitutional principles in `/memory/constitution.md`
@@ -183,6 +235,6 @@ This is an MVP development phase. All changes should:
 4. Include accessibility considerations
 5. Update relevant documentation
 
-## License
+## 9. License
 
 Proprietary - Internal development only.
