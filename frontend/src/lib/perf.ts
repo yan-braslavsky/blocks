@@ -45,11 +45,11 @@ class PerformanceCollector {
     if (typeof window !== 'undefined') {
       marker.url = window.location.pathname;
     }
-    
+
     if (typeof navigator !== 'undefined') {
       marker.userAgent = navigator.userAgent;
     }
-    
+
     const connectionType = this.getConnectionType();
     if (connectionType) {
       marker.connectionType = connectionType;
@@ -86,7 +86,10 @@ class PerformanceCollector {
   /**
    * Mark Core Web Vitals
    */
-  markWebVital(name: 'CLS' | 'FID' | 'FCP' | 'LCP' | 'TTFB', value: number): void {
+  markWebVital(
+    name: 'CLS' | 'FID' | 'FCP' | 'LCP' | 'TTFB',
+    value: number
+  ): void {
     this.mark(`webvital:${name}`, value);
   }
 
@@ -152,7 +155,7 @@ class PerformanceCollector {
 
   private getTenantId(): string | undefined {
     // Extract from context/localStorage - placeholder for now
-    return typeof window !== 'undefined' 
+    return typeof window !== 'undefined'
       ? window.localStorage.getItem('tenantId') || undefined
       : undefined;
   }
@@ -183,22 +186,34 @@ class PerformanceCollector {
 }
 
 // Global instance
-export const perf = typeof window !== 'undefined' ? new PerformanceCollector() : null;
+export const perf =
+  typeof window !== 'undefined' ? new PerformanceCollector() : null;
 
 // Convenience functions
 export function markPerf(name: string, value?: number): void {
   perf?.mark(name, value);
 }
 
-export function measurePerf(name: string, startMark: string, endMark?: string): void {
+export function measurePerf(
+  name: string,
+  startMark: string,
+  endMark?: string
+): void {
   perf?.measure(name, startMark, endMark);
 }
 
-export function markWebVital(name: 'CLS' | 'FID' | 'FCP' | 'LCP' | 'TTFB', value: number): void {
+export function markWebVital(
+  name: 'CLS' | 'FID' | 'FCP' | 'LCP' | 'TTFB',
+  value: number
+): void {
   perf?.markWebVital(name, value);
 }
 
-export function markTiming(name: string, startTime: number, endTime?: number): void {
+export function markTiming(
+  name: string,
+  startTime: number,
+  endTime?: number
+): void {
   perf?.markTiming(name, startTime, endTime);
 }
 

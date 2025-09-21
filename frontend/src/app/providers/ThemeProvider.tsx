@@ -30,24 +30,24 @@ export function ThemeProvider({
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
   const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>('light');
-  
+
   // Get resolved theme (actual theme to apply)
   const resolvedTheme = theme === 'system' ? systemTheme : theme;
 
   // Listen to system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches ? 'dark' : 'light');
     };
 
     // Set initial system theme
     setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
-    
+
     // Listen for changes
     mediaQuery.addEventListener('change', handleChange);
-    
+
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
@@ -66,21 +66,21 @@ export function ThemeProvider({
   // Apply theme to document
   useEffect(() => {
     const root = document.documentElement;
-    
+
     // Remove existing theme classes
     root.classList.remove('light', 'dark');
-    
+
     // Add resolved theme class
     root.classList.add(resolvedTheme);
-    
+
     // Set data attribute for CSS selectors
     root.setAttribute('data-theme', resolvedTheme);
-    
+
     // Update meta theme-color for mobile browsers
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
       metaThemeColor.setAttribute(
-        'content', 
+        'content',
         resolvedTheme === 'dark' ? '#0f172a' : '#f8fafc'
       );
     }
@@ -88,7 +88,7 @@ export function ThemeProvider({
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    
+
     try {
       if (newTheme === defaultTheme) {
         localStorage.removeItem(storageKey);
@@ -118,9 +118,7 @@ export function ThemeProvider({
   };
 
   return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
 
@@ -133,38 +131,59 @@ export function useTheme() {
 }
 
 // Theme toggle button component
-export function ThemeToggle({ 
+export function ThemeToggle({
   className = '',
-  showLabel = false 
-}: { 
+  showLabel = false,
+}: {
   className?: string;
   showLabel?: boolean;
 }) {
   const { theme, resolvedTheme, toggleTheme } = useTheme();
-  
+
   const getIcon = () => {
     if (theme === 'system') {
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-          <path d="M19 3v4" />
-          <path d="M21 5h-4" />
+        <svg
+          width='20'
+          height='20'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='2'
+        >
+          <path d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z' />
+          <path d='M19 3v4' />
+          <path d='M21 5h-4' />
         </svg>
       );
     }
-    
+
     if (resolvedTheme === 'dark') {
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        <svg
+          width='20'
+          height='20'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='2'
+        >
+          <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' />
         </svg>
       );
     }
-    
+
     return (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="5" />
-        <path d="m12 1 0 6m0 6 0 6M4.22 4.22l4.24 4.24m8.48 0 4.24-4.24M1 12l6 0m6 0 6 0M4.22 19.78l4.24-4.24m8.48 0 4.24 4.24" />
+      <svg
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+      >
+        <circle cx='12' cy='12' r='5' />
+        <path d='m12 1 0 6m0 6 0 6M4.22 4.22l4.24 4.24m8.48 0 4.24-4.24M1 12l6 0m6 0 6 0M4.22 19.78l4.24-4.24m8.48 0 4.24 4.24' />
       </svg>
     );
   };
@@ -182,11 +201,7 @@ export function ThemeToggle({
       title={`Current theme: ${getLabel()}. Click to toggle.`}
     >
       {getIcon()}
-      {showLabel && (
-        <span className="text-sm font-medium">
-          {getLabel()}
-        </span>
-      )}
+      {showLabel && <span className='text-sm font-medium'>{getLabel()}</span>}
     </button>
   );
 }

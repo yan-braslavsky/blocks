@@ -32,44 +32,57 @@ export function useDashboardFilters(): UseDashboardFiltersResult {
       timeRange: searchParams.get('timeRange') || DEFAULT_FILTERS.timeRange,
       service: searchParams.get('service') || undefined,
       accountScope: searchParams.get('accountScope') || undefined,
-      granularity: (searchParams.get('granularity') as DashboardFilters['granularity']) || DEFAULT_FILTERS.granularity,
+      granularity:
+        (searchParams.get('granularity') as DashboardFilters['granularity']) ||
+        DEFAULT_FILTERS.granularity,
     } as DashboardFilters;
   }, [searchParams]);
 
   // Update URL with new filter values
-  const updateUrl = useCallback((newFilters: Partial<DashboardFilters>) => {
-    const params = new URLSearchParams(searchParams.toString());
+  const updateUrl = useCallback(
+    (newFilters: Partial<DashboardFilters>) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-    // Update parameters
-    Object.entries(newFilters).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== '') {
-        params.set(key, value);
-      } else {
-        params.delete(key);
+      // Update parameters
+      Object.entries(newFilters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.set(key, value);
+        } else {
+          params.delete(key);
+        }
+      });
+
+      // Remove default values to keep URL clean
+      if (params.get('timeRange') === DEFAULT_FILTERS.timeRange) {
+        params.delete('timeRange');
       }
-    });
+      if (params.get('granularity') === DEFAULT_FILTERS.granularity) {
+        params.delete('granularity');
+      }
 
-    // Remove default values to keep URL clean
-    if (params.get('timeRange') === DEFAULT_FILTERS.timeRange) {
-      params.delete('timeRange');
-    }
-    if (params.get('granularity') === DEFAULT_FILTERS.granularity) {
-      params.delete('granularity');
-    }
-
-    const newUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
-    window.history.replaceState({}, '', newUrl);
-  }, [searchParams, pathname]);
+      const newUrl = params.toString()
+        ? `${pathname}?${params.toString()}`
+        : pathname;
+      window.history.replaceState({}, '', newUrl);
+    },
+    [searchParams, pathname]
+  );
 
   // Set a single filter
-  const setFilter = useCallback((key: keyof DashboardFilters, value: string | undefined) => {
-    updateUrl({ [key]: value });
-  }, [updateUrl]);
+  const setFilter = useCallback(
+    (key: keyof DashboardFilters, value: string | undefined) => {
+      updateUrl({ [key]: value });
+    },
+    [updateUrl]
+  );
 
   // Set multiple filters at once
-  const setFilters = useCallback((newFilters: Partial<DashboardFilters>) => {
-    updateUrl(newFilters);
-  }, [updateUrl]);
+  const setFilters = useCallback(
+    (newFilters: Partial<DashboardFilters>) => {
+      updateUrl(newFilters);
+    },
+    [updateUrl]
+  );
 
   // Reset all filters to defaults
   const resetFilters = useCallback(() => {

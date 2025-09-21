@@ -40,7 +40,7 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
       id: '01234567-89ab-cdef-0123-456789abcdef',
       name: 'Demo Organization',
       connectionStatus: 'validated',
-      lastIngestAt: '2025-09-19T08:30:00.000Z'
+      lastIngestAt: '2025-09-19T08:30:00.000Z',
     };
 
     // Simulate loading delay
@@ -60,12 +60,10 @@ export const TenantProvider: React.FC<TenantProviderProps> = ({ children }) => {
   const value = {
     tenant,
     setTenant,
-    isLoading
+    isLoading,
   };
 
   return (
-    <TenantContext.Provider value={value}>
-      {children}
-    </TenantContext.Provider>
+    <TenantContext.Provider value={value}>{children}</TenantContext.Provider>
   );
 };
