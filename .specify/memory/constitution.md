@@ -1,5 +1,21 @@
 # Blocks Constitution
 
+<!--
+Sync Impact Report
+Version: 0.2.1 -> 0.2.2 (patch)
+Modified Principles: (none – wording unchanged)
+Added Sections: none
+Removed Sections: none
+Metadata Corrections: Fixed stale footer comment (was v0.2.0), inserted Sync Impact Report, updated Last Amended date, aligned plan template version reference.
+Templates Updated:
+ - .specify/templates/plan-template.md ✅ (version reference updated)
+ - .specify/templates/spec-template.md ✅ (no version string to update)
+ - .specify/templates/tasks-template.md ✅ (no version string to update)
+ - .specify/templates/agent-file-template.md ✅ (placeholder template; no change needed)
+Deferred TODOs: none
+Rationale for Patch Bump: Documentation synchronization & metadata corrections without semantic principle changes.
+-->
+
 > Living principles powering the Blocks MVP (see `blocks_mvp_spec.md`). This file is the canonical lightweight memory for decision alignment.
 
 ## Core Principles
@@ -121,9 +137,12 @@ Constitution supersedes ad-hoc preferences. Amendments use PR with label `consti
 - Quarterly audit: sample 5 recent features for traceability to principles.
 - Violations trigger remediation issue tagged `principle-drift`.
 
-**Version**: 0.2.1 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-19
+**Version**: 0.2.2 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-21
 
-### Recent Amendments (v0.2.1)
+### Recent Amendments (v0.2.2)
+- **Metadata & Consistency Patch**: Added Sync Impact Report header, fixed stale footer version tag, and synchronized plan template version reference.
+
+### Previous Amendments (v0.2.1)
 - **Checklist Maintenance**: Added mandatory checklist updates in `specs/001-mvp-web-app/tasks.md` as part of task completion workflow to ensure progress visibility and project tracking accuracy.
 
 ### Previous Amendments (v0.2.0)
@@ -131,4 +150,4 @@ Constitution supersedes ad-hoc preferences. Amendments use PR with label `consti
 - **Quality Gates**: Mandated console error resolution and end-to-end testing before task completion.
 - **Test-Driven Approach**: Formalized TDD/BDD practices with browser validation loops.
 
-<!-- End of Blocks Constitution v0.2.0 -->
+<!-- End of Blocks Constitution v0.2.2 -->
