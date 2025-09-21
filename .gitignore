@@ -162,8 +162,9 @@ site/
 .vscode/settings.json
 .vscode/launch.json
 
-# Package manager artifacts that can be regenerated
-package-lock.json
+# Package manager artifacts
+# Keep package-lock.json committed for deterministic installs & CI caching
+# Still ignore other lock formats we are not using
 yarn.lock
 pnpm-lock.yaml
 

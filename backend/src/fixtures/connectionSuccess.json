@@ -1,0 +1,20 @@
+{
+  "status": "validated",
+  "checks": [
+    {
+      "id": "assumeRole",
+      "ok": true,
+      "message": "Successfully assumed IAM role"
+    },
+    {
+      "id": "costExplorerAccess",
+      "ok": true,
+      "message": "Cost Explorer permissions verified"
+    },
+    {
+      "id": "organizationsAccess",
+      "ok": true,
+      "message": "Organizations read permissions verified"
+    }
+  ]
+}

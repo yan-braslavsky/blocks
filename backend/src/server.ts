@@ -1,5 +1,20 @@
 // Basic server setup - will be enhanced in later tasks
-import Fastify, { FastifyInstance } from 'fastify';
+import Fastify, { FastifyInstance, FastifyError, FastifyRequest, FastifyReply } from 'fastify';
+import { ZodError } from 'zod';
+
+// Import middleware
+import { errorHandler, notFoundHandler } from './middleware/errors';
+import { createLoggingPlugin } from './middleware/logging';
+
+// Import API handlers
+import { spendHandler } from './api/spend';
+import { projectionHandler } from './api/projection';
+import { recommendationsHandler } from './api/recommendations';
+import { assistantQueryHandler } from './api/assistant';
+import { connectionTestHandler } from './api/connectionTest';
+import { tenantSetupHandler } from './api/tenantSetup';
+import { perfCollectHandler } from './api/perfCollect';
+import { exportHandler } from './api/exportMock';
 
 export const createApp = (): FastifyInstance => {
   const fastify = Fastify({
@@ -7,6 +22,13 @@ export const createApp = (): FastifyInstance => {
       level: process.env.LOG_LEVEL || 'info',
     },
   });
+
+  // Register logging middleware
+  fastify.register(createLoggingPlugin());
+
+  // Use the proper error handler
+  fastify.setErrorHandler(errorHandler);
+  fastify.setNotFoundHandler(notFoundHandler);
 
   // Health check endpoint
   fastify.get('/health', async () => {
@@ -21,6 +43,16 @@ export const createApp = (): FastifyInstance => {
       mockMode: process.env.USE_MOCKS === '1'
     };
   });
+
+  // API Routes
+  fastify.get('/spend', spendHandler);
+  fastify.get('/projection', projectionHandler);
+  fastify.get('/recommendations', recommendationsHandler);
+  fastify.post('/assistant/query', assistantQueryHandler);
+  fastify.post('/connection/test', connectionTestHandler);
+  fastify.post('/tenant/setup', tenantSetupHandler);
+  fastify.post('/api/perf/collect', perfCollectHandler);
+  fastify.get('/export', exportHandler);
 
   return fastify;
 };

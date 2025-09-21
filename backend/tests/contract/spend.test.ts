@@ -39,9 +39,9 @@ describe('GET /spend - Contract Tests', () => {
       const queryResult = spendQuerySchema.safeParse(validQuery);
       expect(queryResult.success).toBe(true);
 
-      // This will fail until handler is implemented
+      // Handler is now implemented
       const response = await request.get('/spend').query(validQuery);
-      expect(response.status).toBe(404); // Expected to fail - handler not implemented yet
+      expect(response.status).toBe(200); // Handler now implemented and working
     });
 
     it('should reject invalid timeRange values', async () => {
@@ -197,10 +197,10 @@ describe('GET /spend - Contract Tests', () => {
   });
 
   describe('Integration Contract Tests', () => {
-    it('should return 404 for unimplemented endpoint', async () => {
-      // This test validates the current state where the endpoint is not implemented
+    it('should return 400 for missing required parameters when endpoint is implemented', async () => {
+      // This test validates the current state where the endpoint is implemented
       const response = await request.get('/spend');
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(400);
     });
 
     it('should return proper error format when endpoint is implemented', async () => {
@@ -208,8 +208,8 @@ describe('GET /spend - Contract Tests', () => {
       // For now, it documents the expected behavior
       const response = await request.get('/spend').query({ timeRange: 'invalid' });
       
-      // Currently returns 404, but once implemented should return 400 with error schema
-      expect(response.status).toBe(404);
+      // Currently returns 400 for validation errors with proper error schema
+      expect(response.status).toBe(400);
       
       // TODO: Once handler is implemented, update this test to expect:
       // expect(response.status).toBe(400);

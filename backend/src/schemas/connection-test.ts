@@ -6,7 +6,7 @@ import {
   awsArnSchema,
   externalIdSchema,
   timestampSchema
-} from './common.js';
+} from './common';
 
 // Request body schema
 export const connectionTestRequestSchema = z.object({
@@ -14,26 +14,20 @@ export const connectionTestRequestSchema = z.object({
   externalId: externalIdSchema,
 });
 
-// Connection validation result
-export const connectionValidationSchema = z.object({
-  roleArn: awsArnSchema,
-  isValid: z.boolean(),
-  errorMessage: z.string()
-    .max(500, 'Error message must be at most 500 characters')
-    .optional(),
-  testedAt: timestampSchema,
-  permissions: z.array(z.string())
-    .max(50, 'Maximum 50 permissions can be listed')
-    .optional()
-    .default([]),
+// Connection check result
+export const connectionCheckSchema = z.object({
+  id: z.string(),
+  ok: z.boolean(),
+  message: z.string().optional(),
 });
 
 // POST /connection-test response schema
 export const connectionTestResponseSchema = z.object({
-  validation: connectionValidationSchema,
+  status: z.enum(['pending', 'validated', 'error']),
+  checks: z.array(connectionCheckSchema).min(1, 'At least one check is required'),
 });
 
 // Export types
 export type ConnectionTestRequest = z.infer<typeof connectionTestRequestSchema>;
-export type ConnectionValidation = z.infer<typeof connectionValidationSchema>;
+export type ConnectionCheck = z.infer<typeof connectionCheckSchema>;
 export type ConnectionTestResponse = z.infer<typeof connectionTestResponseSchema>;

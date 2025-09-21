@@ -1,0 +1,8 @@
+{
+  "tenantId": "01234567-89ab-cdef-0123-456789abcdef",
+  "period": "month",
+  "baselineMinor": 450000,
+  "projectedMinor": 360000,
+  "deltaPct": 0.2,
+  "generatedAt": "2025-09-19T08:30:00.000Z"
+}

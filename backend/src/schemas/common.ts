@@ -10,6 +10,7 @@ export const errorSchema = z.object({
     message: z.string().min(1, 'Error message is required'),
     hint: z.string().optional(),
   }),
+  requestId: z.string().optional(),
 });
 
 // UUID validation
@@ -23,6 +24,9 @@ export const minorAmountSchema = z.number().int().nonnegative('Amount must be no
 
 // Percentage (0-1 decimal)
 export const percentageSchema = z.number().min(0).max(1, 'Percentage must be between 0 and 1');
+
+// Percentage change (can exceed 100%, e.g., 1.5 = 150% increase)
+export const deltaPercentageSchema = z.number().min(-10).max(10, 'Percentage change must be between -1000% and 1000%');
 
 // Time range enum
 export const timeRangeSchema = z.enum(['day', 'week', 'month', 'ytd'], {
@@ -64,13 +68,15 @@ export const tenantNameSchema = z.string()
 
 // Metric reference pattern validation (e.g., "agg:2025-09-19T10", "rec:uuid")
 export const metricRefSchema = z.string().regex(
-  /^(agg|rec):[A-Za-z0-9:-]+$/,
+  /^(agg|rec):[A-Za-z0-9:\-]+$/,
   'Metric reference must follow pattern: (agg|rec):[identifier]'
 );
 
 // Common response metadata
 export const metaSchema = z.object({
-  missingIntervalsPct: z.number().min(0).max(1),
+  lastIngestAt: timestampSchema.optional(),
+  dataPoints: z.number().int().nonnegative().optional(),
+  currency: z.string().length(3).optional(),
 }).optional();
 
 // Export types for TypeScript
