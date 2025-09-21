@@ -1,23 +1,28 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
+import type { UseMutationResult } from '@tanstack/react-query';
 
 // Types from backend schemas
 interface ConnectionTestRequest {
-  region: string
-  roleArn: string
+  region: string;
+  roleArn: string;
 }
 
 interface ConnectionTestResponse {
-  success: boolean
-  permissions: string[]
-  accountId?: string
-  error?: string
+  success: boolean;
+  permissions: string[];
+  accountId?: string;
+  error?: string;
   meta: {
-    generated: string
-    executionTime: number
-  }
+    generated: string;
+    executionTime: number;
+  };
 }
 
-export function useConnectionTest(): UseMutationResult<ConnectionTestResponse, Error, ConnectionTestRequest> {
+export function useConnectionTest(): UseMutationResult<
+  ConnectionTestResponse,
+  Error,
+  ConnectionTestRequest
+> {
   return useMutation({
     mutationFn: async (request: ConnectionTestRequest) => {
       const response = await fetch('/api/connection-test', {
@@ -26,16 +31,16 @@ export function useConnectionTest(): UseMutationResult<ConnectionTestResponse, E
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(request),
-      })
-      
+      });
+
       if (!response.ok) {
-        throw new Error(`Connection test failed: ${response.statusText}`)
+        throw new Error(`Connection test failed: ${response.statusText}`);
       }
-      
-      return response.json()
+
+      return response.json();
     },
     // Optional: Add retry logic for connection failures
     retry: 2,
     retryDelay: 1000, // 1 second delay between retries
-  })
+  });
 }

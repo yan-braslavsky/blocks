@@ -1,21 +1,24 @@
-import React from 'react'
-import { colors, spacing, borderRadius, typography, shadows } from '../../design-system/tokens'
+import React from 'react';
+// (Design tokens import removed) Previously imported colors, spacing, borderRadius, typography, shadows but unused.
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
-  children: React.ReactNode
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  children: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', className = '', children, ...props }, ref) => {
+  (
+    { variant = 'primary', size = 'md', className = '', children, ...props },
+    ref
+  ) => {
     const baseStyles = `
       inline-flex items-center justify-center
       font-medium transition-colors
       focus:outline-none focus:ring-2 focus:ring-offset-2
       dark:focus:ring-offset-slate-900
       disabled:opacity-50 disabled:cursor-not-allowed
-    `
+    `;
 
     const variants = {
       primary: `
@@ -39,34 +42,32 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         focus:ring-blue-500
         dark:text-slate-200 dark:hover:bg-slate-700
         dark:focus:ring-blue-400
-      `
-    }
+      `,
+    };
 
     const sizes = {
       sm: 'px-3 py-1.5 text-sm rounded-md',
       md: 'px-4 py-2 text-base rounded-md',
-      lg: 'px-6 py-3 text-lg rounded-lg'
-    }
+      lg: 'px-6 py-3 text-lg rounded-lg',
+    };
 
     const combinedClassName = `
       ${baseStyles}
       ${variants[variant]}
       ${sizes[size]}
       ${className}
-    `.replace(/\s+/g, ' ').trim()
+    `
+      .replace(/\s+/g, ' ')
+      .trim();
 
     return (
-      <button
-        ref={ref}
-        className={combinedClassName}
-        {...props}
-      >
+      <button ref={ref} className={combinedClassName} {...props}>
         {children}
       </button>
-    )
+    );
   }
-)
+);
 
-Button.displayName = 'Button'
+Button.displayName = 'Button';
 
-export default Button
+export default Button;

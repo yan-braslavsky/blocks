@@ -1,36 +1,37 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
+import type { UseQueryResult } from '@tanstack/react-query';
 
 // Types from backend schemas
 interface SpendDataPoint {
-  ts: string
-  costMinor: number
-  projectedCostMinor: number
+  ts: string;
+  costMinor: number;
+  projectedCostMinor: number;
 }
 
 interface SpendTotals {
-  baselineMinor: number
-  projectedMinor: number
-  deltaPct: number
+  baselineMinor: number;
+  projectedMinor: number;
+  deltaPct: number;
 }
 
 interface SpendResponse {
-  tenantId: string
-  timeRange: string
-  currency: string
-  granularity: string
-  series: SpendDataPoint[]
-  totals: SpendTotals
+  tenantId: string;
+  timeRange: string;
+  currency: string;
+  granularity: string;
+  series: SpendDataPoint[];
+  totals: SpendTotals;
   meta: {
-    generated: string
-    executionTime: number
-  }
+    generated: string;
+    executionTime: number;
+  };
 }
 
 interface SpendQuery {
-  timeRange: string
-  accountScope?: string
-  service?: string
-  granularity?: 'hour' | 'day' | 'week' | 'month'
+  timeRange: string;
+  accountScope?: string;
+  service?: string;
+  granularity?: 'hour' | 'day' | 'week' | 'month';
 }
 
 export function useSpend(
@@ -39,21 +40,23 @@ export function useSpend(
   return useQuery({
     queryKey: ['spend', params],
     queryFn: async () => {
-      const searchParams = new URLSearchParams()
-      searchParams.append('timeRange', params.timeRange)
-      if (params.accountScope) searchParams.append('accountScope', params.accountScope)
-      if (params.service) searchParams.append('service', params.service)
-      if (params.granularity) searchParams.append('granularity', params.granularity)
+      const searchParams = new URLSearchParams();
+      searchParams.append('timeRange', params.timeRange);
+      if (params.accountScope)
+        searchParams.append('accountScope', params.accountScope);
+      if (params.service) searchParams.append('service', params.service);
+      if (params.granularity)
+        searchParams.append('granularity', params.granularity);
 
-      const response = await fetch(`/api/spend?${searchParams}`)
-      
+      const response = await fetch(`/api/spend?${searchParams}`);
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch spend data: ${response.statusText}`)
+        throw new Error(`Failed to fetch spend data: ${response.statusText}`);
       }
-      
-      return response.json()
+
+      return response.json();
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchInterval: 15 * 60 * 1000, // 15 minutes
-  })
+  });
 }
