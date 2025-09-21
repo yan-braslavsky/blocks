@@ -8,7 +8,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "USE_MOCKS=1 vitest",
+  "test": "USE_MOCKS=1 vitest run",
     "test:watch": "USE_MOCKS=1 vitest --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"

@@ -301,20 +301,15 @@ describe('Mobile Layout Integration Tests', () => {
   describe('Card Styling and Layout', () => {
     it('should maintain consistent card styling across breakpoints', () => {
       const testWidths = [320, 420, 768, 1024];
-      
       testWidths.forEach(width => {
         mockMatchMedia(width);
-        
-        render(<MockDashboardLayout containerWidth={width} />);
-        
-        // Check that all cards maintain their base styling
+        const { unmount } = render(<MockDashboardLayout containerWidth={width} />);
         const cards = [
           screen.getByTestId('spend-overview-card'),
           screen.getByTestId('cost-projection-card'),
           screen.getByTestId('recommendations-card'),
           screen.getByTestId('assistant-card'),
         ];
-        
         cards.forEach(card => {
           expect(card).toHaveClass('card');
           expect(card).toHaveClass('bg-white');
@@ -322,8 +317,8 @@ describe('Mobile Layout Integration Tests', () => {
           expect(card).toHaveClass('shadow');
           expect(card).toHaveClass('p-6');
         });
-        
-        // Clean up for next iteration
+        unmount();
+        cleanup();
         vi.clearAllMocks();
       });
     });
