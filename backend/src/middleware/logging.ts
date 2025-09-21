@@ -237,7 +237,8 @@ export function createLoggingMiddleware(options: LoggingOptions = {}) {
  */
 function extractTenantIdExpress(req: any): string | undefined {
   // Try header first (for API calls)
-  const headerTenantId = req.get ? req.get('x-tenant-id') : req.headers['x-tenant-id'];
+  // Support case-insensitive header lookup
+  let headerTenantId = req.get ? (req.get('x-tenant-id') || req.get('X-Tenant-ID')) : (req.headers['x-tenant-id'] || req.headers['X-Tenant-ID']);
   if (headerTenantId) {
     return headerTenantId;
   }

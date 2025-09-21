@@ -3,7 +3,7 @@
  * Tests that cards stack properly at ≤420px width
  */
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import React from 'react';
 
@@ -281,20 +281,20 @@ describe('Mobile Layout Integration Tests', () => {
         { width: 1024, expectedCols: 'grid-cols-3', expectedContainer: 'desktop' },
       ];
 
-      testCases.forEach(({ width, expectedCols, expectedContainer }) => {
+      for (const { width, expectedCols, expectedContainer } of testCases) {
         mockMatchMedia(width);
-        
-        render(<MockDashboardLayout containerWidth={width} />);
-        
+        const { unmount } = render(<MockDashboardLayout containerWidth={width} />);
+
         const cardsGrid = screen.getByTestId('cards-grid');
         const container = screen.getByTestId('dashboard-container');
-        
+
         expect(cardsGrid).toHaveClass(expectedCols);
         expect(container).toHaveClass(expectedContainer);
-        
-        // Clean up for next iteration
+
+        unmount();
+        cleanup();
         vi.clearAllMocks();
-      });
+      }
     });
   });
 

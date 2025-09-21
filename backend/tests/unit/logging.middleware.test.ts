@@ -1,11 +1,12 @@
 import { describe, it, expect, beforeEach, vi, MockedFunction } from 'vitest';
-import { createLoggingMiddleware, withRequestContext } from '../../src/middleware/logging';
-import * as logLib from '../../src/lib/log';
 
-// Mock the log function
-vi.mock('../src/lib/log', () => ({
+// Mock before importing module under test so the mock is applied
+vi.mock('../../src/lib/log', () => ({
   log: vi.fn(),
 }));
+
+import { createLoggingMiddleware, withRequestContext } from '../../src/middleware/logging';
+import * as logLib from '../../src/lib/log';
 
 const mockLog = logLib.log as MockedFunction<typeof logLib.log>;
 

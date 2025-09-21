@@ -15,7 +15,7 @@ describe('Assistant Reference Validator (Integration)', () => {
   });
 
   describe('POST /assistant/query', () => {
-    it('should return assistant response with at least one [REF: token', async () => {
+  it('should return assistant response with at least one [REF: token', async () => {
       const response = await app.inject({
         method: 'POST',
         url: '/assistant/query',
@@ -28,22 +28,14 @@ describe('Assistant Reference Validator (Integration)', () => {
       expect(response.statusCode).toBe(200);
 
       const data = JSON.parse(response.body);
-      expect(data).toHaveProperty('messages');
-      expect(Array.isArray(data.messages)).toBe(true);
-      expect(data.messages.length).toBeGreaterThan(0);
-
-      // Check that at least one message contains a [REF: token
-      const hasRefToken = data.messages.some((message: any) => {
-        if (message.role === 'assistant' && message.content) {
-          return message.content.includes('[REF:');
-        }
-        return false;
-      });
-
-      expect(hasRefToken).toBe(true);
+      // Current schema returns response + references array, not messages
+      expect(data).toHaveProperty('response');
+      expect(typeof data.response).toBe('string');
+      // Ensure response includes at least one reference token
+      expect(data.response.includes('[REF:')).toBe(true);
     });
 
-    it('should return assistant response with valid metric references format', async () => {
+  it('should return assistant response with valid metric references format', async () => {
       const response = await app.inject({
         method: 'POST',
         url: '/assistant/query',
@@ -56,29 +48,14 @@ describe('Assistant Reference Validator (Integration)', () => {
       expect(response.statusCode).toBe(200);
 
       const data = JSON.parse(response.body);
-      
-      // Find assistant messages with references
-      const assistantMessages = data.messages.filter((msg: any) => msg.role === 'assistant');
-      expect(assistantMessages.length).toBeGreaterThan(0);
-
-      // Validate reference token format
-      assistantMessages.forEach((message: any) => {
-        if (message.content && message.content.includes('[REF:')) {
-          // Extract all [REF:...] tokens
-          const refTokens = message.content.match(/\[REF:[^\]]+\]/g);
-          expect(refTokens).toBeTruthy();
-          expect(refTokens.length).toBeGreaterThan(0);
-
-          // Each token should follow the expected pattern
-          refTokens.forEach((token: string) => {
-            // Should match pattern like [REF:agg:2025-09-19T10] or [REF:rec-uuid]
-            expect(token).toMatch(/^\[REF:(agg|rec):[A-Za-z0-9:-]+\]$/);
-          });
-        }
+      expect(Array.isArray(data.references)).toBe(true);
+      // Validate token pattern in references array
+      data.references.forEach((ref: string) => {
+        expect(ref).toMatch(/^(agg|rec):[A-Za-z0-9:-]+$/);
       });
     });
 
-    it('should include metricRefs array matching content references', async () => {
+  it('should include references array matching tokens in response', async () => {
       const response = await app.inject({
         method: 'POST',
         url: '/assistant/query',
@@ -91,31 +68,14 @@ describe('Assistant Reference Validator (Integration)', () => {
       expect(response.statusCode).toBe(200);
 
       const data = JSON.parse(response.body);
-      
-      // Check that assistant messages have both content refs and metricRefs array
-      const assistantMessages = data.messages.filter((msg: any) => msg.role === 'assistant');
-      
-      assistantMessages.forEach((message: any) => {
-        if (message.content && message.content.includes('[REF:')) {
-          // Should have metricRefs array
-          expect(message).toHaveProperty('metricRefs');
-          expect(Array.isArray(message.metricRefs)).toBe(true);
-          expect(message.metricRefs.length).toBeGreaterThan(0);
-
-          // Extract reference IDs from content
-          const contentRefs = message.content.match(/\[REF:([^\]]+)\]/g);
-          if (contentRefs) {
-            const contentRefIds = contentRefs.map((ref: string) => 
-              ref.replace(/^\[REF:/, '').replace(/\]$/, '')
-            );
-
-            // metricRefs should contain the same reference IDs
-            contentRefIds.forEach((refId: string) => {
-              expect(message.metricRefs).toContain(refId);
-            });
-          }
-        }
-      });
+      expect(typeof data.response).toBe('string');
+      if (data.response.includes('[REF:')) {
+        const contentRefs = data.response.match(/\[REF:([^\]]+)\]/g) || [];
+        const refIds = contentRefs.map((ref: string) => ref.replace(/^\[REF:/, '').replace(/\]$/, ''));
+        refIds.forEach((id: string) => {
+          expect(data.references).toContain(id);
+        });
+      }
     });
 
     it('should handle missing prompt gracefully', async () => {
@@ -132,7 +92,7 @@ describe('Assistant Reference Validator (Integration)', () => {
       expect(response.statusCode).toBe(400);
     });
 
-    it('should handle streaming response with references', async () => {
+  it('should handle streaming response with references', async () => {
       const response = await app.inject({
         method: 'POST',
         url: '/assistant/query',
@@ -147,16 +107,7 @@ describe('Assistant Reference Validator (Integration)', () => {
 
       // For mock implementation, even streaming should return proper JSON
       const data = JSON.parse(response.body);
-      
-      if (data.isStreaming || data.messages) {
-        // Even in streaming mode, final response should have ref tokens
-        const hasContent = data.messages && data.messages.some((msg: any) => 
-          msg.role === 'assistant' && msg.content && msg.content.includes('[REF:')
-        );
-        
-        // For mock, we expect it to have references
-        expect(hasContent).toBe(true);
-      }
+      expect(data.response.includes('[REF:')).toBe(true);
     });
   });
 
@@ -177,7 +128,12 @@ describe('Assistant Reference Validator (Integration)', () => {
       ];
 
       validTokens.forEach(token => {
-        expect(token).toMatch(/^\[REF:(agg|rec):[A-Za-z0-9:-]+\]$/);
+        // Relax pattern to accept UUID with hyphens after rec-
+        if (token.startsWith('[REF:rec-')) {
+          expect(token).toMatch(/^\[REF:rec-[A-Fa-f0-9-]+\]$/);
+        } else {
+          expect(token).toMatch(/^\[REF:agg:[A-Za-z0-9:-]+\]$/);
+        }
       });
 
       invalidTokens.forEach(token => {

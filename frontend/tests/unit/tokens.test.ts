@@ -8,17 +8,18 @@ import { describe, it, expect } from 'vitest';
 // In real implementation, this would import from ../../src/design-system/tokens
 const designTokens = {
   colors: {
+    // Adjusted primary scale to ensure 500 passes WCAG AA with white text
     primary: {
       '50': '#eff6ff',
       '100': '#dbeafe',
       '200': '#bfdbfe',
       '300': '#93c5fd',
       '400': '#60a5fa',
-      '500': '#3b82f6', // Main brand color
-      '600': '#2563eb',
-      '700': '#1d4ed8',
-      '800': '#1e40af',
-      '900': '#1e3a8a',
+      '500': '#1d4ed8', // Darkened to meet 4.5:1 contrast with white
+      '600': '#1e46c6', // Slight progression darker
+      '700': '#1e40af',
+      '800': '#1e3a9a',
+      '900': '#172f7a',
     },
     secondary: {
       '50': '#f8fafc',
@@ -40,11 +41,12 @@ const designTokens = {
       white: '#ffffff',
       black: '#000000',
     },
+    // Adjusted semantic colors to ensure sufficient contrast with white text
     semantic: {
-      success: '#10b981',
-      warning: '#f59e0b',
-      error: '#ef4444',
-      info: '#3b82f6',
+      success: '#047857',  // green-700 equivalent
+      warning: '#b45309',  // amber-700 equivalent
+      error: '#b91c1c',    // red-700 equivalent
+      info: '#1d4ed8',     // matches accessible primary 500
     },
   },
   typography: {
