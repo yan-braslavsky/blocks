@@ -43,6 +43,23 @@ npm run lint
 npm run typecheck
 ```
 
+### Development Server Behavior
+
+The root `npm run dev` command now:
+
+1. Kills any processes currently listening on ports `3000` (frontend) and `3001` (backend) using `lsof` + `kill -9` to avoid stale watchers.
+2. Starts the backend (`Fastify` API) on port `3001` and the Next.js frontend on port `3000` in parallel.
+3. Cleans up both processes when you press `Ctrl+C`.
+
+If you need to run only one side:
+
+```bash
+cd backend && npm run dev   # backend only (port 3001)
+cd frontend && npm run dev  # frontend only (port 3000)
+```
+
+If you prefer a softer process shutdown strategy in the future (e.g. `SIGTERM` then `SIGKILL`), we can adjust `scripts/dev.sh` accordingly.
+
 ## Project Structure
 
 ```
