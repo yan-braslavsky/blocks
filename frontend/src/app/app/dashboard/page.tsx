@@ -3,6 +3,7 @@
 import React from 'react';
 import { useTenant } from '../../providers/TenantProvider';
 import { Card, KPIStat } from '../../../components/ui';
+import { DataFreshnessBanner } from '../../../components/status/DataFreshnessBanner';
 
 const Skeleton = ({ className = '' }: { className?: string }) => (
   <div className={`animate-pulse bg-gray-200 rounded ${className}`}></div>
@@ -79,6 +80,9 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+
+      {/* Data Freshness Banner */}
+      <DataFreshnessBanner lastIngestAt={tenant.lastIngestAt} />
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

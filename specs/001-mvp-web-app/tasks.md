@@ -61,13 +61,13 @@ Sequential groups intentionally omit `[P]` to preserve order.
 - [x] T038 TanStack Query hooks `frontend/src/hooks/` (`useSpend.ts`, `useProjection.ts`, `useRecommendations.ts`, `useAssistant.ts`, `useConnectionTest.ts`). Depends on handlers.
 
 ## Phase 3.4 Interaction & State Enhancements
-- [ ] T039 URL filter state sync `frontend/src/app/app/dashboard/useDashboardFilters.ts` (query param <-> state).
-- [ ] T040 Data freshness banner `frontend/src/components/status/DataFreshnessBanner.tsx` using `lastIngestAt` from mock.
-- [ ] T041 Recommendation status mutation stub `frontend/src/hooks/useRecommendations.ts` (local optimistic update new→acknowledged).
-- [ ] T042 Logging middleware `backend/src/middleware/logging.ts` (requestId, tenantId injection) + tests.
-- [ ] T043 Error handling middleware `backend/src/middleware/errors.ts` normalizing error shape.
-- [ ] T044 Assistant reference token validator test `backend/tests/integration/assistant-ref-validator.test.ts` (ensures at least one `[REF:`). Depends on T029.
-- [ ] T045 Accessibility audit script `frontend/scripts/a11y-check.ts` (axe-core headless run over key routes).
+- [x] T039 URL filter state sync `frontend/src/app/app/dashboard/useDashboardFilters.ts` (query param <-> state).
+- [x] T040 Data freshness banner `frontend/src/components/status/DataFreshnessBanner.tsx` using `lastIngestAt` from mock.
+- [x] T041 Recommendation status mutation stub `frontend/src/hooks/useRecommendations.ts` (local optimistic update new→acknowledged).
+- [x] T042 Logging middleware `backend/src/middleware/logging.ts` (requestId, tenantId injection) + tests.
+- [x] T043 Error handling middleware `backend/src/middleware/errors.ts` normalizing error shape.
+- [x] T044 Assistant reference token validator test `backend/tests/integration/assistant-ref-validator.test.ts` (ensures at least one `[REF:`). Depends on T029.
+- [x] T045 Accessibility audit script `frontend/scripts/a11y-check.ts` (axe-core headless run over key routes).
 
 ## Phase 3.5 Hardening, Observability & Polish
 - [ ] T046 Performance markers `frontend/src/lib/perf.ts` + collector mock endpoint `backend/src/api/perfCollect.ts` (schema test). 
