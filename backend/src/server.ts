@@ -9,6 +9,8 @@ import { recommendationsHandler } from './api/recommendations';
 import { assistantQueryHandler } from './api/assistant';
 import { connectionTestHandler } from './api/connectionTest';
 import { tenantSetupHandler } from './api/tenantSetup';
+import { perfCollectHandler } from './api/perfCollect';
+import { exportHandler } from './api/exportMock';
 
 export const createApp = (): FastifyInstance => {
   const fastify = Fastify({
@@ -70,6 +72,8 @@ export const createApp = (): FastifyInstance => {
   fastify.post('/api/assistant', assistantQueryHandler);
   fastify.post('/api/connection-test', connectionTestHandler);
   fastify.post('/api/tenant-setup', tenantSetupHandler);
+  fastify.post('/api/perf/collect', perfCollectHandler);
+  fastify.get('/api/export', exportHandler);
 
   return fastify;
 };

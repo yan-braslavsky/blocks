@@ -12,3 +12,5 @@ export * from './recommendations';
 export * from './assistant';
 export * from './connection-test';
 export * from './tenant-setup';
+export * from './performance';
+export * from './export';

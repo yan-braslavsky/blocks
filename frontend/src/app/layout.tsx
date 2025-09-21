@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { TenantProvider } from './providers/TenantProvider';
 import { QueryProvider } from './providers/QueryProvider';
+import { ThemeProvider } from './providers/ThemeProvider';
 import AssistantWidget from '../components/assistant/Widget';
 
 export const metadata: Metadata = {
@@ -23,12 +24,14 @@ export default function RootLayout({
   return (
     <html lang='en' className='h-full'>
       <body className='h-full bg-background text-foreground antialiased'>
-        <QueryProvider>
-          <TenantProvider>
-            {children}
-            <AssistantWidget />
-          </TenantProvider>
-        </QueryProvider>
+        <ThemeProvider>
+          <QueryProvider>
+            <TenantProvider>
+              {children}
+              <AssistantWidget />
+            </TenantProvider>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

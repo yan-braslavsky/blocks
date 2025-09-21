@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTenant } from '../../app/providers/TenantProvider'
+import { ThemeToggle } from '../../app/providers/ThemeProvider'
 
 interface AppShellProps {
   children: React.ReactNode
@@ -46,10 +47,10 @@ export default function AppShell({ children }: AppShellProps) {
   const { tenant } = useTenant()
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 z-20 lg:hidden">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 z-20 lg:hidden">
           <div 
             className="fixed inset-0"
             onClick={() => setSidebarOpen(false)}
@@ -58,19 +59,19 @@ export default function AppShell({ children }: AppShellProps) {
       )}
 
       {/* Mobile sidebar */}
-      <div className={`fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 z-30 transform transition-transform duration-300 ease-in-out lg:hidden ${
+      <div className={`fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-30 transform transition-transform duration-300 ease-in-out lg:hidden ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
           <Link href="/app/dashboard" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded text-white flex items-center justify-center font-bold">
+            <div className="w-8 h-8 bg-blue-600 dark:bg-blue-500 rounded text-white flex items-center justify-center font-bold">
               B
             </div>
-            <span className="text-xl font-bold text-gray-900">Blocks</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Blocks</span>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -88,13 +89,13 @@ export default function AppShell({ children }: AppShellProps) {
                   href={item.href as any}
                   className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border-r-2 border-blue-700 dark:border-blue-400'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
                   }`}
                   onClick={() => setSidebarOpen(false)}
                 >
                   <span className={`mr-3 flex-shrink-0 ${
-                    isActive ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+                    isActive ? 'text-blue-500 dark:text-blue-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400'
                   }`}>
                     {item.icon}
                   </span>
@@ -105,30 +106,33 @@ export default function AppShell({ children }: AppShellProps) {
           </div>
         </nav>
 
-        {/* Tenant info in mobile sidebar */}
-        {tenant && (
-          <div className="absolute bottom-4 left-4 right-4">
-            <div className="bg-gray-50 rounded-lg p-3">
-              <p className="text-xs font-medium text-gray-900 truncate">
+        {/* Theme toggle and tenant info in mobile sidebar */}
+        <div className="absolute bottom-4 left-4 right-4 space-y-3">
+          <div className="flex justify-center">
+            <ThemeToggle showLabel />
+          </div>
+          {tenant && (
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+              <p className="text-xs font-medium text-gray-900 dark:text-gray-100 truncate">
                 {tenant.name}
               </p>
-              <p className="text-xs text-gray-600 capitalize">
+              <p className="text-xs text-gray-600 dark:text-gray-400 capitalize">
                 {tenant.connectionStatus}
               </p>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-grow bg-white border-r border-gray-200">
-          <div className="flex items-center h-16 px-6 border-b border-gray-200">
+        <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+          <div className="flex items-center h-16 px-6 border-b border-gray-200 dark:border-gray-700">
             <Link href="/app/dashboard" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded text-white flex items-center justify-center font-bold">
+              <div className="w-8 h-8 bg-blue-600 dark:bg-blue-500 rounded text-white flex items-center justify-center font-bold">
                 B
               </div>
-              <span className="text-xl font-bold text-gray-900">Blocks</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Blocks</span>
             </Link>
           </div>
 
@@ -142,12 +146,12 @@ export default function AppShell({ children }: AppShellProps) {
                     href={item.href as any}
                     className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        ? 'bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
                     }`}
                   >
                     <span className={`mr-3 flex-shrink-0 ${
-                      isActive ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+                      isActive ? 'text-blue-500 dark:text-blue-400' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-400'
                     }`}>
                       {item.icon}
                     </span>
@@ -158,35 +162,38 @@ export default function AppShell({ children }: AppShellProps) {
             </div>
           </nav>
 
-          {/* Tenant info in desktop sidebar */}
-          {tenant && (
-            <div className="p-6 border-t border-gray-200">
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-sm font-medium text-gray-900 truncate">
+          {/* Theme toggle and tenant info in desktop sidebar */}
+          <div className="p-6 border-t border-gray-200 dark:border-gray-700 space-y-4">
+            <div className="flex justify-center">
+              <ThemeToggle showLabel />
+            </div>
+            {tenant && (
+              <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                   {tenant.name}
                 </p>
-                <p className="text-xs text-gray-600 capitalize">
+                <p className="text-xs text-gray-600 dark:text-gray-400 capitalize">
                   Status: {tenant.connectionStatus}
                 </p>
                 {tenant.lastIngestAt && (
-                  <p className="text-xs text-gray-600 mt-1">
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                     Last sync: {new Date(tenant.lastIngestAt).toLocaleDateString()}
                   </p>
                 )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
       {/* Main content */}
       <div className="lg:pl-64">
         {/* Top bar */}
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-200 lg:hidden">
+        <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 lg:hidden">
           <div className="flex items-center justify-between h-16 px-4">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -194,13 +201,13 @@ export default function AppShell({ children }: AppShellProps) {
             </button>
             
             <Link href="/app/dashboard" className="flex items-center space-x-2">
-              <div className="w-6 h-6 bg-blue-600 rounded text-white flex items-center justify-center font-bold text-sm">
+              <div className="w-6 h-6 bg-blue-600 dark:bg-blue-500 rounded text-white flex items-center justify-center font-bold text-sm">
                 B
               </div>
-              <span className="text-lg font-bold text-gray-900">Blocks</span>
+              <span className="text-lg font-bold text-gray-900 dark:text-gray-100">Blocks</span>
             </Link>
 
-            <div className="w-6 h-6" /> {/* Spacer for centering */}
+            <ThemeToggle className="p-2" />
           </div>
         </div>
 

@@ -70,16 +70,16 @@ Sequential groups intentionally omit `[P]` to preserve order.
 - [x] T045 Accessibility audit script `frontend/scripts/a11y-check.ts` (axe-core headless run over key routes).
 
 ## Phase 3.5 Hardening, Observability & Polish
-- [ ] T046 Performance markers `frontend/src/lib/perf.ts` + collector mock endpoint `backend/src/api/perfCollect.ts` (schema test). 
-- [ ] T047 Lighthouse CI workflow `.github/workflows/lighthouse.yml` (non-blocking informational). 
-- [ ] T048 README update: slice progress table & run instructions referencing quickstart.
-- [ ] T049 Quickstart verification script `scripts/verify.sh` (runs lint, typecheck, tests, build front/back sequentially) + exit non-zero on failure.
-- [ ] T050 Dark mode styles for primitives & shell (respects prefers-color-scheme) updating tokens usage.
-- [ ] T051 Role constants & usage guard `shared/src/roles.ts` (enum + type + basic unit test). Depends on T002/T007.
-- [ ] T052 Export CSV mock endpoint `backend/src/api/exportMock.ts` producing inline CSV string (content-disposition set) + contract test.
-- [ ] T053 Audit event mock service `backend/src/services/auditMock.ts` invoked on recommendation status mutation (augment handler from T028) + unit test.
-- [ ] T054 Contrast & ARIA unit tests for primitives `frontend/tests/unit/primitives-a11y.test.ts`.
-- [ ] T055 Final integration pass script `scripts/integration-smoke.sh` (starts mock server → runs key Playwright-like smoke via Testing Library + supertest) placeholder for future E2E.
+- [x] T046 Performance markers `frontend/src/lib/perf.ts` + collector mock endpoint `backend/src/api/perfCollect.ts` (schema test). 
+- [x] T047 Lighthouse CI workflow `.github/workflows/lighthouse.yml` (non-blocking informational). 
+- [x] T048 README update: slice progress table & run instructions referencing quickstart.
+- [x] T049 Quickstart verification script `scripts/verify.sh` (runs lint, typecheck, tests, build front/back sequentially) + exit non-zero on failure.
+- [x] T050 Dark mode styles for primitives & shell (respects prefers-color-scheme) updating tokens usage.
+- [x] T051 Role constants & usage guard `shared/src/roles.ts` (enum + type + basic unit test). Depends on T002/T007.
+- [x] T052 Export CSV mock endpoint `backend/src/api/exportMock.ts` producing inline CSV string (content-disposition set) + contract test.
+- [x] T053 Audit event mock service `backend/src/services/auditMock.ts` invoked on recommendation status mutation (augment handler from T028) + unit test.
+- [x] T054 Contrast & ARIA unit tests for primitives `frontend/tests/unit/primitives-a11y.test.ts`.
+- [x] T055 Final integration pass script `scripts/integration-smoke.sh` (starts mock server → runs key Playwright-like smoke via Testing Library + supertest) placeholder for future E2E.
 
 ## Dependencies & Ordering Notes
 - T008 before T009, T036, T050.
@@ -100,11 +100,11 @@ Batch C (fixtures & some UI): T023 [P] with T036 (primitives) & T037 (nav) once 
 `/run T049` → run verification script before PR.
 
 ## Validation Checklist
-- [ ] Every contract endpoint has: schema (T011) + contract test (T012–T017) + handler (T024–T029) + wiring (T030).
-- [ ] Each entity from data-model represented via at least one touchpoint (e.g., Recommendation via recommendations handler & mutation stub).
-- [ ] Assistant reference validation tested (T044) and widget integration covered (T019).
-- [ ] Accessibility & performance tasks included (T045, T046, T054, T047).
-- [ ] Incremental value: Foundations → failing tests → passing mocks → enhanced interactivity → polish.
+- [x] Every contract endpoint has: schema (T011) + contract test (T012–T017) + handler (T024–T029) + wiring (T030).
+- [x] Each entity from data-model represented via at least one touchpoint (e.g., Recommendation via recommendations handler & mutation stub).
+- [x] Assistant reference validation tested (T044) and widget integration covered (T019).
+- [x] Accessibility & performance tasks included (T045, T046, T054, T047).
+- [x] Incremental value: Foundations → failing tests → passing mocks → enhanced interactivity → polish.
 
 ---
 End regenerated tasks.md

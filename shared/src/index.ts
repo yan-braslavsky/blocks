@@ -4,6 +4,9 @@
 // Types
 export * from './types/index.js';
 
+// Roles and permissions
+export * from './roles.js';
+
 // Future exports:
 // export * from './utils/index.js';
 // export * from './constants/index.js';

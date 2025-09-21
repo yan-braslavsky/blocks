@@ -11,17 +11,21 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ variant = 'default', padding = 'md', className = '', children, ...props }, ref) => {
     const baseStyles = `
       bg-white rounded-lg
+      dark:bg-slate-800
     `
 
     const variants = {
       default: `
         border border-slate-200
+        dark:border-slate-600
       `,
       outlined: `
         border-2 border-slate-300
+        dark:border-slate-600
       `,
       elevated: `
         border border-slate-200 shadow-md
+        dark:border-slate-600 dark:shadow-slate-900/20
       `
     }
 
