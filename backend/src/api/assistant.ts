@@ -52,13 +52,10 @@ export async function assistantQueryHandler(
       );
       const fixture = JSON.parse(fixtureData);
       
-      // Update message timestamp
-      fixture.messages[0].timestamp = new Date().toISOString();
-      
-      // Customize response based on question
-      if (validatedBody.question.toLowerCase().includes('cost') || 
-          validatedBody.question.toLowerCase().includes('spend')) {
-        fixture.messages[0].content = `Based on your question about costs, I can see from your recent spending data [REF:agg:2025-09-19T10] that you have opportunities for optimization. Your current weekly spend shows a potential 20% savings through rightsizing recommendations [REF:rec-01234567-89ab-cdef-0123-456789abcdef].`;
+      // Customize response based on prompt
+      if (validatedBody.prompt.toLowerCase().includes('cost') || 
+          validatedBody.prompt.toLowerCase().includes('spend')) {
+        fixture.response = `Based on your question about costs, I can see from your recent spending data [REF:agg:2025-09-19T10] that you have opportunities for optimization. Your current weekly spend shows a potential 20% savings through rightsizing recommendations [REF:rec-01234567-89ab-cdef-0123-456789abcdef].`;
       }
 
       if (isStreaming) {
@@ -67,7 +64,7 @@ export async function assistantQueryHandler(
         reply.header('Cache-Control', 'no-cache');
         reply.header('Connection', 'keep-alive');
         
-        const streamer = new MockStreamingResponse(fixture.messages[0].content);
+        const streamer = new MockStreamingResponse(fixture.response);
         
         for await (const chunk of streamer.stream()) {
           reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
@@ -82,9 +79,9 @@ export async function assistantQueryHandler(
       const validatedResponse = assistantQueryResponseSchema.parse(fixture);
 
       request.log.info({ 
-        questionLength: validatedBody.question.length,
-        responseLength: validatedResponse.messages[0]?.content.length || 0,
-        metricRefs: validatedResponse.messages[0]?.metricRefs?.length || 0,
+        promptLength: validatedBody.prompt.length,
+        responseLength: validatedResponse.response.length || 0,
+        metricRefs: validatedResponse.references.length || 0,
         isStreaming
       }, 'Assistant query processed (mock)');
       

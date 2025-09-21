@@ -1,11 +1,5 @@
 {
-  "tenant": {
-    "tenantId": "01234567-89ab-cdef-0123-456789abcdef",
-    "tenantName": "Demo Organization",
-    "roleArn": "arn:aws:iam::123456789012:role/BlocksCostAnalysisRole",
-    "externalId": "blocks-ext-12345678",
-    "isActivated": true,
-    "createdAt": "2025-09-19T08:00:00.000Z",
-    "lastUpdatedAt": "2025-09-19T08:00:00.000Z"
-  }
+  "tenantId": "01234567-89ab-cdef-0123-456789abcdef",
+  "name": "Demo Organization",
+  "connectionStatus": "unconfigured"
 }

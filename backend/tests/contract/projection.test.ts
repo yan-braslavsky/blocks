@@ -36,9 +36,9 @@ describe('GET /projection - Contract Tests', () => {
       const queryResult = projectionQuerySchema.safeParse(validQuery);
       expect(queryResult.success).toBe(true);
 
-      // This will fail until handler is implemented
+      // Handler should be working now
       const response = await request.get('/projection').query(validQuery);
-      expect(response.status).toBe(404); // Expected to fail - handler not implemented yet
+      expect(response.status).toBe(200); // Handler should work
     });
 
     it('should reject invalid period values', async () => {

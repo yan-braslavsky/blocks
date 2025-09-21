@@ -25,22 +25,31 @@ export async function connectionTestHandler(
       );
       const fixture = JSON.parse(fixtureData) as ConnectionTestResponse;
       
-      // Update fixture with request data
-      fixture.validation.roleArn = validatedBody.roleArn;
-      fixture.validation.testedAt = new Date().toISOString();
-
       // Simulate validation based on ARN pattern
       const isValidArn = /^arn:aws:iam::\d{12}:role\/[a-zA-Z0-9+=,.@_-]+$/.test(validatedBody.roleArn);
       
       if (!isValidArn) {
-        fixture.validation.isValid = false;
-        fixture.validation.errorMessage = 'Invalid IAM role ARN format';
-        fixture.validation.permissions = [];
+        // Return error status with failed checks
+        const errorResponse: ConnectionTestResponse = {
+          status: 'error',
+          checks: [
+            {
+              id: 'assumeRole',
+              ok: false,
+              message: 'Invalid IAM role ARN format'
+            }
+          ]
+        };
+        request.log.info({ 
+          roleArn: validatedBody.roleArn, 
+          isValid: false 
+        }, 'Connection test completed (mock)');
+        return errorResponse;
       }
 
       request.log.info({ 
         roleArn: validatedBody.roleArn, 
-        isValid: fixture.validation.isValid 
+        isValid: true 
       }, 'Connection test completed (mock)');
       
       return fixture;

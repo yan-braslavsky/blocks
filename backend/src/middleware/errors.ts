@@ -69,11 +69,57 @@ export function errorHandler(
     statusCode = 400;
     const firstError = error.errors[0];
     if (firstError) {
+      // Map specific Zod error codes to application error codes
+      let errorCode = 'VALIDATION_ERROR';
+      let errorMessage = firstError.message;
+      let hint = `Invalid field: ${firstError.path.join('.')}`;
+
+      // Handle specific validation cases for prompt field
+      if (firstError.path.includes('prompt')) {
+        if (firstError.code === 'invalid_type' && firstError.received === 'undefined') {
+          errorCode = 'MISSING_PROMPT';
+          errorMessage = 'Prompt is required for assistant queries';
+          hint = 'Please provide a valid prompt in the request body';
+        } else if (firstError.code === 'too_small') {
+          errorCode = 'MISSING_PROMPT';
+          errorMessage = 'Prompt is required for assistant queries';
+          hint = 'Please provide a valid prompt in the request body';
+        } else if (firstError.code === 'too_big') {
+          errorCode = 'PROMPT_TOO_LONG';
+          errorMessage = 'Prompt exceeds maximum length of 1000 characters';
+          hint = 'Please shorten your prompt';
+        }
+      }
+      // Handle specific validation cases for roleArn field
+      else if (firstError.path.includes('roleArn')) {
+        if (firstError.code === 'invalid_string') {
+          errorCode = 'INVALID_ARN';
+          errorMessage = 'Invalid AWS IAM role ARN format';
+          hint = 'ARN must follow format: arn:aws:iam::account-id:role/role-name';
+        }
+      }
+      // Handle specific validation cases for externalId field
+      else if (firstError.path.includes('externalId')) {
+        if (firstError.code === 'too_small') {
+          errorCode = 'INVALID_EXTERNAL_ID';
+          errorMessage = 'External ID must be at least 8 characters';
+          hint = 'Please provide a valid external ID with at least 8 characters';
+        } else if (firstError.code === 'too_big') {
+          errorCode = 'INVALID_EXTERNAL_ID';
+          errorMessage = 'External ID must be at most 64 characters';
+          hint = 'Please provide a valid external ID with at most 64 characters';
+        } else if (firstError.code === 'invalid_string') {
+          errorCode = 'INVALID_EXTERNAL_ID';
+          errorMessage = 'External ID contains invalid characters';
+          hint = 'External ID can only contain alphanumeric characters and hyphens';
+        }
+      }
+
       errorResponse = {
         error: {
-          code: 'VALIDATION_ERROR',
-          message: firstError.message,
-          hint: `Invalid field: ${firstError.path.join('.')}`,
+          code: errorCode,
+          message: errorMessage,
+          hint,
         },
         requestId,
       };

@@ -12,7 +12,7 @@ import {
 
 // Request body schema
 export const tenantSetupRequestSchema = z.object({
-  tenantName: tenantNameSchema,
+  name: tenantNameSchema,
   roleArn: awsArnSchema,
   externalId: externalIdSchema,
 });
@@ -20,7 +20,7 @@ export const tenantSetupRequestSchema = z.object({
 // Tenant setup result
 export const tenantSetupResultSchema = z.object({
   tenantId: uuidSchema,
-  tenantName: tenantNameSchema,
+  name: tenantNameSchema,
   roleArn: awsArnSchema,
   externalId: externalIdSchema,
   isActivated: z.boolean(),
@@ -30,7 +30,9 @@ export const tenantSetupResultSchema = z.object({
 
 // POST /tenant-setup response schema
 export const tenantSetupResponseSchema = z.object({
-  tenant: tenantSetupResultSchema,
+  tenantId: uuidSchema,
+  name: tenantNameSchema,
+  connectionStatus: z.enum(['unconfigured', 'pending', 'validated', 'error']),
 });
 
 // Export types

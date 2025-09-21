@@ -10,9 +10,10 @@ import {
 
 // Request body schema
 export const assistantQueryRequestSchema = z.object({
-  question: z.string()
-    .min(1, 'Question is required')
-    .max(1000, 'Question must be at most 1000 characters'),
+  prompt: z.string()
+    .trim()
+    .min(1, 'Prompt is required')
+    .max(1000, 'Prompt must be at most 1000 characters'),
 });
 
 // Individual assistant response message
@@ -29,13 +30,14 @@ export const assistantMessageSchema = z.object({
 
 // POST /assistant response schema
 export const assistantQueryResponseSchema = z.object({
-  tenantId: uuidSchema,
-  conversationId: uuidSchema,
-  messages: z.array(assistantMessageSchema)
-    .min(1, 'At least one message is required')
-    .max(10, 'Maximum 10 messages per response'),
-  isStreaming: z.boolean()
-    .default(false),
+  interactionId: uuidSchema,
+  response: z.string()
+    .min(1, 'Response content is required'),
+  references: z.array(metricRefSchema)
+    .max(20, 'Maximum 20 metric references per response')
+    .default([]),
+  firstTokenLatencyMs: z.number()
+    .min(0, 'Latency must be non-negative'),
 });
 
 // Export types

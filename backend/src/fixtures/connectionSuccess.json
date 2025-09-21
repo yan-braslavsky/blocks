@@ -1,13 +1,20 @@
 {
-  "validation": {
-    "roleArn": "arn:aws:iam::123456789012:role/BlocksCostAnalysisRole",
-    "isValid": true,
-    "testedAt": "2025-09-19T08:45:00.000Z",
-    "permissions": [
-      "ce:GetCostAndUsage",
-      "ce:GetUsageReport", 
-      "ce:GetReservationCoverage",
-      "organizations:ListAccounts"
-    ]
-  }
+  "status": "validated",
+  "checks": [
+    {
+      "id": "assumeRole",
+      "ok": true,
+      "message": "Successfully assumed IAM role"
+    },
+    {
+      "id": "costExplorerAccess",
+      "ok": true,
+      "message": "Cost Explorer permissions verified"
+    },
+    {
+      "id": "organizationsAccess",
+      "ok": true,
+      "message": "Organizations read permissions verified"
+    }
+  ]
 }

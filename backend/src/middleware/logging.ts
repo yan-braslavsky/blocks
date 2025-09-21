@@ -148,4 +148,111 @@ export function withRequestContext(request: FastifyRequest) {
   };
 }
 
+/**
+ * Express-style middleware function for testing
+ * Creates a middleware function compatible with supertest
+ */
+export function createLoggingMiddleware(options: LoggingOptions = {}) {
+  const config = { ...DEFAULT_OPTIONS, ...options };
+
+  return (req: any, res: any, next: any) => {
+    // Skip logging for excluded paths
+    if (config.excludePaths?.includes(req.path)) {
+      return next();
+    }
+
+    // Generate unique request ID
+    req.requestId = randomUUID();
+    req.startTime = Date.now();
+
+    // Extract tenant ID from various possible sources
+    const extractedTenantId = extractTenantIdExpress(req);
+    if (extractedTenantId) {
+      req.tenantId = extractedTenantId;
+    }
+
+    // Add request ID to response headers for debugging
+    res.setHeader('X-Request-ID', req.requestId);
+
+    // Log incoming request
+    const requestMeta: any = {
+      requestId: req.requestId,
+      method: req.method,
+      url: req.url,
+      userAgent: req.get ? req.get('user-agent') : req.headers['user-agent'],
+      ip: req.ip,
+    };
+
+    if (req.tenantId) {
+      requestMeta.tenantId = req.tenantId;
+    }
+
+    if (config.includeBody && req.body) {
+      const bodyStr = JSON.stringify(req.body);
+      if (bodyStr.length <= (config.maxBodySize || 1024)) {
+        requestMeta.body = req.body;
+      } else {
+        requestMeta.bodySize = bodyStr.length;
+        requestMeta.bodyTruncated = true;
+      }
+    }
+
+    log('info', 'Request received', requestMeta);
+
+    // Hook into response end to log completion
+    const originalEnd = res.end;
+    res.end = function(...args: any[]) {
+      const duration = Date.now() - req.startTime;
+      
+      const responseMeta: any = {
+        requestId: req.requestId,
+        statusCode: res.statusCode,
+        duration,
+      };
+
+      if (req.tenantId) {
+        responseMeta.tenantId = req.tenantId;
+      }
+
+      // Determine log level based on status code
+      let level: 'info' | 'warn' | 'error' = 'info';
+      if (res.statusCode >= 400 && res.statusCode < 500) {
+        level = 'warn';
+      } else if (res.statusCode >= 500) {
+        level = 'error';
+      }
+
+      log(level, 'Request completed', responseMeta);
+
+      // Call original end method
+      return originalEnd.apply(this, args);
+    };
+
+    next();
+  };
+}
+
+/**
+ * Extract tenant ID for Express-style requests
+ */
+function extractTenantIdExpress(req: any): string | undefined {
+  // Try header first (for API calls)
+  const headerTenantId = req.get ? req.get('x-tenant-id') : req.headers['x-tenant-id'];
+  if (headerTenantId) {
+    return headerTenantId;
+  }
+
+  // Try query parameter
+  if (req.query?.tenantId) {
+    return req.query.tenantId;
+  }
+
+  // Try body (for POST/PUT requests)
+  if (req.body && req.body.tenantId) {
+    return req.body.tenantId;
+  }
+
+  return undefined;
+}
+
 export default createLoggingPlugin;

@@ -7,7 +7,7 @@ import {
   uuidSchema, 
   timestampSchema, 
   minorAmountSchema,
-  percentageSchema 
+  deltaPercentageSchema 
 } from './common';
 
 // Query parameters schema
@@ -21,7 +21,7 @@ export const projectionResponseSchema = z.object({
   period: timeRangeSchema,
   baselineMinor: minorAmountSchema,
   projectedMinor: minorAmountSchema,
-  deltaPct: percentageSchema,
+  deltaPct: deltaPercentageSchema,
   generatedAt: timestampSchema,
 });
 

@@ -26,12 +26,9 @@ export async function tenantSetupHandler(
       const fixture = JSON.parse(fixtureData) as TenantSetupResponse;
       
       // Update fixture with request data
-      fixture.tenant.tenantName = validatedBody.tenantName;
-      fixture.tenant.roleArn = validatedBody.roleArn;
-      fixture.tenant.externalId = validatedBody.externalId;
-      fixture.tenant.lastUpdatedAt = new Date().toISOString();
+      fixture.name = validatedBody.name;
 
-      request.log.info({ tenantName: validatedBody.tenantName }, 'Tenant setup completed (mock)');
+      request.log.info({ tenantName: validatedBody.name }, 'Tenant setup completed (mock)');
       
       return fixture;
     } catch (error) {

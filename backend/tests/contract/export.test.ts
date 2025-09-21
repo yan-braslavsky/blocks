@@ -95,7 +95,7 @@ describe('GET /export - Contract Tests', () => {
   describe('Endpoint Response Tests', () => {
     it('should return CSV data for spending export', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .query({ type: 'spending' })
         .expect(200);
 
@@ -117,7 +117,7 @@ describe('GET /export - Contract Tests', () => {
 
     it('should return CSV data for recommendations export', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .query({ type: 'recommendations' })
         .expect(200);
 
@@ -139,7 +139,7 @@ describe('GET /export - Contract Tests', () => {
 
     it('should return combined CSV data for full export', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .query({ type: 'full' })
         .expect(200);
 
@@ -155,7 +155,7 @@ describe('GET /export - Contract Tests', () => {
 
     it('should use default type when no query parameters provided', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .expect(200);
 
       // Should default to full export
@@ -164,7 +164,7 @@ describe('GET /export - Contract Tests', () => {
 
     it('should handle CSV field escaping correctly', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .query({ type: 'spending' })
         .expect(200);
 
@@ -177,7 +177,7 @@ describe('GET /export - Contract Tests', () => {
   describe('Error Handling', () => {
     it('should return 400 for invalid export type', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .query({ type: 'invalid_type' })
         .expect(400);
 
@@ -190,7 +190,7 @@ describe('GET /export - Contract Tests', () => {
   describe('Response Headers', () => {
     it('should set appropriate caching headers', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .query({ type: 'spending' })
         .expect(200);
 
@@ -199,7 +199,7 @@ describe('GET /export - Contract Tests', () => {
 
     it('should set correct content type for CSV', async () => {
       const response = await request
-        .get('/api/export')
+        .get('/export')
         .query({ type: 'spending' })
         .expect(200);
 

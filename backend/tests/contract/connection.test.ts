@@ -37,9 +37,9 @@ describe('POST /connection/test - Contract Tests', () => {
       const requestResult = connectionTestRequestSchema.safeParse(validRequest);
       expect(requestResult.success).toBe(true);
 
-      // This will fail until handler is implemented
+      // Handler should be working now
       const response = await request.post('/connection/test').send(validRequest);
-      expect(response.status).toBe(404); // Expected to fail - handler not implemented yet
+      expect(response.status).toBe(200); // Handler should work
     });
 
     it('should reject request body without roleArn field', async () => {

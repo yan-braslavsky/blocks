@@ -2,6 +2,10 @@
 import Fastify, { FastifyInstance, FastifyError, FastifyRequest, FastifyReply } from 'fastify';
 import { ZodError } from 'zod';
 
+// Import middleware
+import { errorHandler, notFoundHandler } from './middleware/errors';
+import { createLoggingPlugin } from './middleware/logging';
+
 // Import API handlers
 import { spendHandler } from './api/spend';
 import { projectionHandler } from './api/projection';
@@ -19,37 +23,12 @@ export const createApp = (): FastifyInstance => {
     },
   });
 
-  // Generic error handler
-  fastify.setErrorHandler(async (error: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
-    // Handle Zod validation errors
-    if (error instanceof ZodError) {
-      reply.status(400).send({
-        error: 'validation_failed',
-        message: 'Request validation failed',
-        details: error.errors.map(err => ({
-          path: err.path.join('.'),
-          message: err.message
-        }))
-      });
-      return;
-    }
+  // Register logging middleware
+  fastify.register(createLoggingPlugin());
 
-    // Handle other known errors
-    if (error.statusCode) {
-      reply.status(error.statusCode).send({
-        error: error.code || 'unknown_error',
-        message: error.message
-      });
-      return;
-    }
-
-    // Handle unexpected errors
-    fastify.log.error(error);
-    reply.status(500).send({
-      error: 'internal_server_error',
-      message: 'An internal server error occurred'
-    });
-  });
+  // Use the proper error handler
+  fastify.setErrorHandler(errorHandler);
+  fastify.setNotFoundHandler(notFoundHandler);
 
   // Health check endpoint
   fastify.get('/health', async () => {
@@ -66,14 +45,14 @@ export const createApp = (): FastifyInstance => {
   });
 
   // API Routes
-  fastify.get('/api/spend', spendHandler);
-  fastify.get('/api/projection', projectionHandler);
-  fastify.get('/api/recommendations', recommendationsHandler);
-  fastify.post('/api/assistant', assistantQueryHandler);
-  fastify.post('/api/connection-test', connectionTestHandler);
-  fastify.post('/api/tenant-setup', tenantSetupHandler);
+  fastify.get('/spend', spendHandler);
+  fastify.get('/projection', projectionHandler);
+  fastify.get('/recommendations', recommendationsHandler);
+  fastify.post('/assistant/query', assistantQueryHandler);
+  fastify.post('/connection/test', connectionTestHandler);
+  fastify.post('/tenant/setup', tenantSetupHandler);
   fastify.post('/api/perf/collect', perfCollectHandler);
-  fastify.get('/api/export', exportHandler);
+  fastify.get('/export', exportHandler);
 
   return fastify;
 };

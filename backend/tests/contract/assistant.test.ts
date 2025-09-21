@@ -36,9 +36,9 @@ describe('POST /assistant/query - Contract Tests', () => {
       const requestResult = assistantQueryRequestSchema.safeParse(validRequest);
       expect(requestResult.success).toBe(true);
 
-      // This will fail until handler is implemented
+      // This should now succeed since handler is implemented
       const response = await request.post('/assistant/query').send(validRequest);
-      expect(response.status).toBe(404); // Expected to fail - handler not implemented yet
+      expect(response.status).toBe(200); // Handler should be working now
     });
 
     it('should reject request body without prompt field', async () => {
