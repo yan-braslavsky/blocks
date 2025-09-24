@@ -75,6 +75,43 @@ export const colors = {
   info: '#2563eb',
 } as const;
 
+// Mock Data Disclaimer Tokens
+export const mockDisclaimer = {
+  colors: {
+    background: 'rgba(148, 163, 184, 0.1)', // slate-400 with 10% opacity
+    border: colors.slate[300],
+    text: colors.slate[600],
+    watermark: 'rgba(148, 163, 184, 0.05)', // Very light watermark
+  },
+  
+  typography: {
+    fontSize: '0.75rem', // 12px - smaller than base text
+    fontWeight: '500', // Medium weight for visibility
+    lineHeight: '1.25', // Tight line height
+    letterSpacing: '0.025em', // Slightly spaced for readability
+  },
+  
+  spacing: {
+    padding: `${spacing[1]} ${spacing[2]}`, // 4px 8px - compact padding
+    margin: spacing[2], // 8px margin from content
+  },
+  
+  layout: {
+    borderRadius: '4px', // Small radius - subtle rounding
+    borderWidth: '1px',
+    position: 'absolute' as const,
+    zIndex: 10,
+  },
+  
+  watermark: {
+    fontSize: '0.625rem', // 10px - very small for watermark
+    opacity: 0.3,
+    transform: 'rotate(-15deg)',
+    pointerEvents: 'none' as const,
+    userSelect: 'none' as const,
+  }
+} as const;
+
 // Typography Scale (Modular scale ratio: 1.125 - Major Second)
 export const typography = {
   fontFamily: {
