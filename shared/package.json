@@ -10,8 +10,9 @@
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
-  "test": "vitest run",
-    "test:watch": "vitest --watch"
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "zod": "^3.22.0"

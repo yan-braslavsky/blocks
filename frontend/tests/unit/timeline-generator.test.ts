@@ -103,7 +103,7 @@ describe('Timeline Generator', () => {
     it('should generate chronologically ordered data points', () => {
       const blocks = generateMockTimelines();
       
-      blocks.forEach(block => {
+      blocks.forEach((block: TimelineBlock) => {
         for (let i = 1; i < block.dataPoints.length; i++) {
           expect(block.dataPoints[i]?.timestamp).toBeGreaterThan(
             block.dataPoints[i - 1]?.timestamp || 0
@@ -115,8 +115,8 @@ describe('Timeline Generator', () => {
     it('should generate data points with valid structure', () => {
       const blocks = generateMockTimelines();
       
-      blocks.forEach(block => {
-        block.dataPoints.forEach(point => {
+      blocks.forEach((block: TimelineBlock) => {
+        block.dataPoints.forEach((point: TimelineBlock['dataPoints'][number]) => {
           expect(point).toHaveProperty('timestamp');
           expect(point).toHaveProperty('value');
           expect(typeof point.timestamp).toBe('number');
@@ -155,14 +155,14 @@ describe('Timeline Generator', () => {
       const perfTimeline = generateSingleTimeline('Performance');
       
       // Spend should generally have higher values than performance
-      const spendAvg = spendTimeline.dataPoints.reduce((sum, p) => sum + p.value, 0) / spendTimeline.dataPoints.length;
-      const perfAvg = perfTimeline.dataPoints.reduce((sum, p) => sum + p.value, 0) / perfTimeline.dataPoints.length;
+  const spendAvg = spendTimeline.dataPoints.reduce((sum: number, p: TimelineBlock['dataPoints'][number]) => sum + p.value, 0) / spendTimeline.dataPoints.length;
+  const perfAvg = perfTimeline.dataPoints.reduce((sum: number, p: TimelineBlock['dataPoints'][number]) => sum + p.value, 0) / perfTimeline.dataPoints.length;
       
       // Performance is typically 0-100%, spend is typically much higher
       expect(spendAvg).toBeGreaterThan(perfAvg);
       
       // Performance should be within 0-100 range mostly
-      perfTimeline.dataPoints.forEach(point => {
+  perfTimeline.dataPoints.forEach((point: TimelineBlock['dataPoints'][number]) => {
         expect(point.value).toBeGreaterThanOrEqual(0);
         expect(point.value).toBeLessThanOrEqual(120); // Allow some variance above 100
       });
@@ -182,7 +182,7 @@ describe('Timeline Generator', () => {
       const blocks = generateMockTimelines();
       
       // Verify blocks are suitable for dashboard display
-      blocks.forEach(block => {
+  blocks.forEach((block: TimelineBlock) => {
         // Titles should be descriptive
         expect(block.title.length).toBeGreaterThan(5);
         
@@ -193,7 +193,7 @@ describe('Timeline Generator', () => {
         expect(block.dataPoints.length).toBe(30);
         
         // Values should be in reasonable ranges for display
-        block.dataPoints.forEach(point => {
+  block.dataPoints.forEach((point: TimelineBlock['dataPoints'][number]) => {
           expect(point.value).toBeGreaterThanOrEqual(0);
           expect(point.value).toBeLessThan(100000); // Reasonable upper bound
         });
@@ -227,7 +227,7 @@ describe('Timeline Generator', () => {
       });
       
       // Verify data point structure
-      timeline.dataPoints.forEach(point => {
+  timeline.dataPoints.forEach((point: TimelineBlock['dataPoints'][number]) => {
         expect(point).toHaveProperty('timestamp');
         expect(point).toHaveProperty('value');
       });
