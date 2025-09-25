@@ -6,7 +6,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { generateMockRecommendations, getMockRecommendationsResponse, RecommendationStub } from '../../src/lib/mock/recommendations';
+import { generateMockRecommendations, getMockRecommendationsResponse } from '../../src/lib/mock/recommendations';
+import type { RecommendationStub } from '@blocks/shared';
 
 // Mock the seed utility
 vi.mock('../../src/lib/mock/seed', () => ({

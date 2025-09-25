@@ -8,7 +8,9 @@
  * from CTA buttons before the actual components are implemented.
  */
 
+import React from 'react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
 
 // Mock implementations for testing CTA button interaction patterns
 // These will be replaced with actual components during implementation
@@ -255,7 +257,7 @@ describe('CTA Button Interaction Patterns', () => {
 
       expect(enableButtonSpec.type).toBe('enable');
       expect(enableButtonSpec.states).toContain('confirmation');
-      expect(enableButtonSpec.analytics).toLength(4);
+  expect(enableButtonSpec.analytics).toHaveLength(4);
       expect(enableButtonSpec.feedback).toContain('success_toast');
       expect(enableButtonSpec.accessibility).toContain('keyboard_navigation');
     });
@@ -705,4 +707,3 @@ describe('CTA Button Interaction Patterns', () => {
       expect(debounceSpec.maxRetries).toBeGreaterThan(0);
     });
   });
-});

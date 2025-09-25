@@ -6,7 +6,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { generateMockTimelines, generateSingleTimeline, TimelineBlock } from '../../src/lib/mock/timelines';
+import { generateMockTimelines, generateSingleTimeline } from '../../src/lib/mock/timelines';
+import type { TimelineBlock } from '@blocks/shared';
 
 // Mock the seed utility
 vi.mock('../../src/lib/mock/seed', () => ({
