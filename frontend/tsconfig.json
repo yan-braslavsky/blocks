@@ -8,9 +8,14 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["../shared/src/*"]
+      "@shared/*": ["../shared/src/*"],
+      "@blocks/shared": ["../shared/src/index.ts"],
+      "@blocks/shared/*": ["../shared/src/*"]
     }
   },
+  "references": [
+    { "path": "../shared" }
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
