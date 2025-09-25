@@ -70,44 +70,44 @@ Integration / UI Tests (Playwright):
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 Models / Types / Utilities:
-- [ ] T018 [P] Define shared types for RecommendationStub & TimelineBlock in `shared/src/types/recommendations.ts`
-- [ ] T019 [P] Implement seed utility logic in `frontend/src/lib/mock/seed.ts`
-- [ ] T020 [P] Implement recommendation fixture export + de-dup in `frontend/src/lib/mock/recommendations.ts`
-- [ ] T021 [P] Implement timeline generation (3+ metric types) in `frontend/src/lib/mock/timelines.ts`
+- [x] T018 [P] Define shared types for RecommendationStub & TimelineBlock in `shared/src/types/recommendations.ts`
+- [x] T019 [P] Implement seed utility logic in `frontend/src/lib/mock/seed.ts`
+- [x] T020 [P] Implement recommendation fixture export + de-dup in `frontend/src/lib/mock/recommendations.ts`
+- [x] T021 [P] Implement timeline generation (3+ metric types) in `frontend/src/lib/mock/timelines.ts`
 
 Frontend Components:
-- [ ] T022 Create RecommendationCard component `frontend/src/components/recommendations/RecommendationCard.tsx`
-- [ ] T023 Create RecommendationsList component `frontend/src/components/recommendations/RecommendationsList.tsx`
-- [ ] T024 Create TimelineChart stub component (SVG or simple bar/line) `frontend/src/components/recommendations/TimelineChart.tsx`
-- [ ] T025 Create TimelinesPanel component combining blocks `frontend/src/components/recommendations/TimelinesPanel.tsx`
-- [ ] T026 Create CTA panel/modal component `frontend/src/components/recommendations/ActivationCta.tsx`
-- [ ] T027 Add disclaimers/watermark component `frontend/src/components/recommendations/MockDisclaimer.tsx`
-- [ ] T028 Assemble Dashboard page route `frontend/src/app/dashboard/recommendations/page.tsx`
+- [x] T022 Create RecommendationCard component `frontend/src/components/recommendations/RecommendationCard.tsx`
+- [x] T023 Create RecommendationsList component `frontend/src/components/recommendations/RecommendationsList.tsx`
+- [x] T024 Create TimelineChart stub component (SVG or simple bar/line) `frontend/src/components/recommendations/TimelineChart.tsx`
+- [x] T025 Create TimelinesPanel component combining blocks `frontend/src/components/recommendations/TimelinesPanel.tsx`
+- [x] T026 Create CTA panel/modal component `frontend/src/components/recommendations/ActivationCta.tsx`
+- [x] T027 Add disclaimers/watermark component `frontend/src/components/recommendations/MockDisclaimer.tsx`
+- [x] T028 Assemble Dashboard page route `frontend/src/app/dashboard/recommendations/page.tsx`
 
 Loading & Accessibility Enhancements:
-- [ ] T029 [P] Add skeleton loaders components `frontend/src/components/recommendations/Skeletons.tsx`
-- [ ] T030 [P] Ensure keyboard navigation order & aria labels (pass a11y test) in list & CTA
+- [x] T029 [P] Add skeleton loaders components `frontend/src/components/recommendations/Skeletons.tsx`
+- [x] T030 [P] Ensure keyboard navigation order & aria labels (pass a11y test) in list & CTA
 
 Optional Backend Stubs (only if later wiring required):
 - [ ] T031 Add mock recommendations endpoint `backend/src/api/mock/recommendations.ts` (static in-memory export) — FUTURE OPTIONAL
 - [ ] T032 Add mock timelines endpoint `backend/src/api/mock/timelines.ts` — FUTURE OPTIONAL
 
 ## Phase 3.4: Integration & Refinement
-- [ ] T033 Wire shared types import into frontend components (align with `shared/src/types/recommendations.ts`)
-- [ ] T034 Add de-dup logging (dev mode only) `frontend/src/lib/mock/recommendations.ts`
-- [ ] T035 Add daily seed rollover test hook (expose function to override seed for tests) `frontend/src/lib/mock/seed.ts`
-- [ ] T036 Insert disclaimer text + watermark styling in timeline & list parent container
-- [ ] T037 Verify performance (TTI not regressed) & add lightweight perf log marker
-- [ ] T038 Update quickstart validation after implementation (mark checklist items)
+- [x] T033 Wire shared types import into frontend components (align with `shared/src/types/recommendations.ts`)
+- [x] T034 Add de-dup logging (dev mode only) `frontend/src/lib/mock/recommendations.ts`
+- [x] T035 Add daily seed rollover test hook (expose function to override seed for tests) `frontend/src/lib/mock/seed.ts`
+- [x] T036 Insert disclaimer text + watermark styling in timeline & list parent container
+- [x] T037 Verify performance (TTI not regressed) & add lightweight perf log marker
+- [x] T038 Update quickstart validation after implementation (mark checklist items)
 
 ## Phase 3.5: Polish & Documentation
 - [ ] T039 [P] Add unit tests for RecommendationCard edge cases (long title truncation) `frontend/tests/unit/recommendation.card.test.tsx`
 - [ ] T040 [P] Add unit tests for TimelineChart aria labeling `frontend/tests/unit/timeline.chart.a11y.test.tsx`
-- [ ] T041 [P] Add README section update referencing evaluation dashboard (`README.md`)
-- [ ] T042 Refactor for duplication removal (shared hooks for seed) `frontend/src/hooks/useDailySeed.ts`
-- [ ] T043 Final accessibility audit & fix issues
-- [ ] T044 Remove any remaining console warnings & ensure disclaimers visible
-- [ ] T045 Update spec & plan removing resolved NEEDS CLARIFICATION markers (seed persistence) if accepted
+- [x] T041 [P] Add README section update referencing evaluation dashboard (`README.md`)
+- [x] T042 Refactor for duplication removal (shared hooks for seed) `frontend/src/hooks/useDailySeed.ts`
+- [x] T043 Final accessibility audit & fix issues
+- [x] T044 Remove any remaining console warnings & ensure disclaimers visible
+- [x] T045 Update spec & plan removing resolved NEEDS CLARIFICATION markers (seed persistence) if accepted
 
 ## Dependencies
 - T001 before any frontend component tasks

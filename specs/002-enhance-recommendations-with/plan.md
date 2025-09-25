@@ -223,15 +223,15 @@ Resolution Path:
 - [x] Phase 0: Research complete (/plan command)
 - [x] Phase 1: Design complete (/plan command)
 - [x] Phase 2: Task planning approach documented (/plan command)
-- [ ] Phase 3: Tasks generated (/tasks command)
-- [ ] Phase 4: Implementation complete
-- [ ] Phase 5: Validation passed
+- [x] Phase 3: Tasks generated (/tasks command)
+- [x] Phase 4: Implementation complete
+- [x] Phase 5: Validation passed
 
 **Gate Status**:
 - [x] Initial Constitution Check: PASS
 - [x] Post-Design Constitution Check: PASS (no new violations)
-- [ ] All NEEDS CLARIFICATION resolved (remaining: persistence scope, activation source-of-truth)
-- [ ] Complexity deviations documented (none needed yet)
+- [x] All NEEDS CLARIFICATION resolved (client-side seed chosen, activation deferred)
+- [x] Complexity deviations documented (none needed)
 
 ---
 *Based on Constitution v0.2.2 - See `/memory/constitution.md`*

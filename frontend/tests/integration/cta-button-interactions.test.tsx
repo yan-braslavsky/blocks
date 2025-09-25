@@ -276,16 +276,7 @@ describe('CTA Button Interaction Patterns', () => {
       expect(purchaseButtonSpec.feedback).toContain('payment_modal');
     });
   });
-
-describe('CTA Button Interaction Patterns', () => {
-  
-  beforeEach(() => {
-    // Reset all mocks before each test
-    vi.clearAllMocks();
-    mockShowToast.mockClear();
-    mockTrackEvent.mockClear();
-    mockPush.mockClear();
-  });
+});
 
   describe('Basic CTA button rendering and states', () => {
     it('should render enable button in default state', () => {

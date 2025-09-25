@@ -22,6 +22,7 @@ npm run dev               # starts backend (3001) + frontend (3000)
 
 Then visit:
 - App shell / dashboard: http://localhost:3000/app/dashboard
+- **Enhanced recommendations (evaluation mode)**: http://localhost:3000/dashboard/recommendations
 - Assistant widget: open dashboard and interact
 - Backend health: http://localhost:3001/health
 
@@ -138,6 +139,7 @@ npm run typecheck
 - [x] Accessibility audit tooling and ARIA compliance
 - [x] Structured logging and error handling middleware
 - [x] Performance monitoring with custom metrics collection
+- [x] **Enhanced recommendations dashboard** with mock timeline visualizations and evaluation mode
 
 #### In Progress 🔄
 - [ ] Dark mode support with system preference detection

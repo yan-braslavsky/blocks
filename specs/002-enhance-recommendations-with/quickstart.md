@@ -19,12 +19,12 @@ Spin up local environment and view mock recommendations + timeline dashboard wit
 5. (Optional) Change system date → data changes after seed rollover.
 
 ## Validation Checklist
-- [ ] Recommendation count ≥ 5
-- [ ] Timeline blocks ≥ 3
-- [ ] CTA accessible name present
-- [ ] Watermark / disclaimer visible
-- [ ] Deterministic daily data verified
-- [ ] Skeletons appear on throttled load
+- [x] Recommendation count ≥ 5
+- [x] Timeline blocks ≥ 3
+- [x] CTA accessible name present
+- [x] Watermark / disclaimer visible
+- [x] Deterministic daily data verified
+- [x] Skeletons appear on throttled load
 
 ## Troubleshooting
 - Missing data: Ensure mock generation utilities exported to UI.
